@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="AgroMart" title="AgroMart" src="https://raw.githubusercontent.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/master/src/assets/logoReadMe.png" width="220px" height="220px" />
+  <img alt="AgroMart" title="AgroMart" src="https://raw.githubusercontent.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/master/src/assets/logo_0.5.png" width="220px" height="220px" />
 <h3 align="center">
 Tema : Agricultura e Alimentação
 </h3>
