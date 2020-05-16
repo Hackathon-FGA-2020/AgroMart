@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 
 import Home from '../pages/Home';
 import Search from '../pages/Search';
@@ -13,8 +13,8 @@ const TabRoutes: React.FC = () => (
   <Tab.Navigator
     initialRouteName="Home"
     tabBarOptions={{
-      activeTintColor: '#e91e63',
-      inactiveTintColor: '#7915c1',
+      activeTintColor: '#00AA95',
+      inactiveTintColor: '#292929',
     }}
   >
     <Tab.Screen
@@ -22,7 +22,7 @@ const TabRoutes: React.FC = () => (
       component={Home}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
+          <Icon name="home" color={color} size={size} />
         ),
       }}
     />
@@ -31,7 +31,7 @@ const TabRoutes: React.FC = () => (
       component={Search}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
+          <Icon name="search" color={color} size={size} />
         ),
       }}
     />
@@ -40,7 +40,7 @@ const TabRoutes: React.FC = () => (
       component={MapView}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
+          <Icon name="map" color={color} size={size} />
         ),
       }}
     />
@@ -49,7 +49,7 @@ const TabRoutes: React.FC = () => (
       component={Recomendations}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
+          <Icon name="info" color={color} size={size} />
         ),
       }}
     />
