@@ -18,3 +18,12 @@ export const Logo = styled(FastImage).attrs({
   height: ${metrics.PADDING_SCREEN * 7}px;
   margin-bottom: ${metrics.PADDING_SCREEN * 2}px;
 `;
+
+export const EyeButton = styled.TouchableOpacity``;
+
+export const AnimationCircule = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: 'white',
+})`
+  align-self: center;
+`;

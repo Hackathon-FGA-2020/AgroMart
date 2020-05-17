@@ -1,6 +1,20 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 import { metrics, fonts } from '../../styles';
+
+export const LinearGradientButton = styled(LinearGradient).attrs({
+  colors: ['#00AA95', '#00CC76'],
+  start: { x: 0, y: 0 },
+  end: { x: 1, y: 0 },
+})`
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Container = styled(RectButton)`
   width: 100%;
