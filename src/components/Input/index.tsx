@@ -3,13 +3,15 @@ import { Container, TInput, TextErrorInput } from './styles';
 
 interface InputProps {
   icon: string;
+  passLock?: string;
 }
 
-const Input: React.FC<InputProps> = ({ icon, ...rest }, ref) => {
+const Input: React.FC<InputProps> = ({ icon, passLock, ...rest }, ref) => {
   return (
     <Container>
-      <TInput {...rest} ref={ref} />
       {icon}
+      <TInput {...rest} ref={ref} />
+      {passLock}
     </Container>
   );
 };

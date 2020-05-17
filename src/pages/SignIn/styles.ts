@@ -33,3 +33,17 @@ export const AnimationCircule = styled.ActivityIndicator.attrs({
 })`
   align-self: center;
 `;
+
+export const CreateAccountButton = styled.TouchableOpacity`
+  padding: 25px 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const CreateAccountButtonText = styled.Text`
+  color: #00aa95;
+  font-size: 18px;
+  font-family: MontserratAlternates-Regular;
+  margin-left: 8px;
+`;

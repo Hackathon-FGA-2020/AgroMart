@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -13,6 +14,8 @@ import {
   EyeButton,
   AnimationCircule,
   AppName,
+  CreateAccountButton,
+  CreateAccountButtonText,
 } from './styles';
 
 const SignIn: React.FC = () => {
@@ -78,11 +81,20 @@ const SignIn: React.FC = () => {
         onSubmitEditing={formik.submitForm}
         value={formik.values.password}
         onChangeText={formik.handleChange('password')}
-        icon={<ButtonPasswordSecure />}
+        icon={<MaterialIcons name="lock" color="#9f9f9f" size={20} />}
+        passLock={<ButtonPasswordSecure />}
       />
       <Button onPress={formik.submitForm}>
         {loading ? <AnimationCircule /> : 'Logar'}
       </Button>
+      <CreateAccountButton
+        onPress={() => {
+          // navigation.push('SingUp');
+        }}
+      >
+        <Feather name="log-in" size={20} color="#00AA95" />
+        <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+      </CreateAccountButton>
     </Container>
   );
 };
