@@ -15,6 +15,7 @@ const TabRoutes: React.FC = () => (
     tabBarOptions={{
       activeTintColor: '#00AA95',
       inactiveTintColor: '#292929',
+      showLabel: false,
     }}
   >
     <Tab.Screen
