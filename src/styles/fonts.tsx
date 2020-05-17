@@ -2,7 +2,7 @@ import { Platform, PixelRatio } from 'react-native';
 
 import metrics from './metrics';
 
-const normalize = (size) => {
+const normalize = size => {
   const scale = metrics.SCREEN_WIDTH / 320;
   const newSize = scale * size;
   return Math.round(
@@ -10,7 +10,7 @@ const normalize = (size) => {
       ios: PixelRatio.roundToNearestPixel(newSize) - 2,
       android: PixelRatio.roundToNearestPixel(newSize) - 2,
       default: size,
-    })
+    }),
   );
 };
 

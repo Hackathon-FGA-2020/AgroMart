@@ -1,18 +1,35 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, Alert } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { Container, Logo, EyeButton, AnimationCircule } from './styles';
+import {
+  Container,
+  Logo,
+  EyeButton,
+  AnimationCircule,
+  AppName,
+} from './styles';
 
 const SignIn: React.FC = () => {
   const passwordRef = useRef<TextInput | any>();
-  const [passwordSecure, setPasswordSecure] = useState(false);
+  const [passwordSecure, setPasswordSecure] = useState(true);
   const [loading, setLoading] = useState(false);
-  const handleSubmit = useCallback(data => {
-    console.log(data);
+  // const navigation = useNavigation();
+
+  const handleSubmit = useCallback(async data => {
+    try {
+      setLoading(true);
+      await api.post('sessions', data);
+      // navigation.goBack();
+    } catch (error) {
+      Alert.alert('Erro ao fazer login');
+    }
+    setLoading(false);
   }, []);
 
   const SCHEMA = Yup.object().shape({
@@ -41,6 +58,7 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Logo />
+      <AppName>AgroMart</AppName>
       <Input
         placeholder="E-mail"
         autoCorrect={false}

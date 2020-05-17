@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
-import { metrics } from '../../styles';
+import { metrics, fonts } from '../../styles';
 import { LOGO } from '../../assets/images';
 
 export const Container = styled.View`
@@ -16,10 +16,16 @@ export const Logo = styled(FastImage).attrs({
 })`
   width: ${metrics.PADDING_SCREEN * 6}px;
   height: ${metrics.PADDING_SCREEN * 7}px;
-  margin-bottom: ${metrics.PADDING_SCREEN * 2}px;
+  margin-bottom: ${metrics.PADDING_SCREEN * 0.7}px;
 `;
 
 export const EyeButton = styled.TouchableOpacity``;
+
+export const AppName = styled.Text`
+  font-size: ${fonts.EXTRA_BIG * 1.5}px;
+  margin-bottom: ${metrics.PADDING_SCREEN * 2}px;
+  font-family: MontserratAlternates-Regular;
+`;
 
 export const AnimationCircule = styled.ActivityIndicator.attrs({
   size: 'small',
