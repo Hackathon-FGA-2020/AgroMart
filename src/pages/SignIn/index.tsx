@@ -5,9 +5,9 @@ import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { useAuth } from '../../hooks/auth';
 import {
   Container,
   Logo,
@@ -22,12 +22,13 @@ const SignIn: React.FC = () => {
   const passwordRef = useRef<TextInput | any>();
   const [passwordSecure, setPasswordSecure] = useState(true);
   const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
   // const navigation = useNavigation();
 
   const handleSubmit = useCallback(async data => {
     try {
       setLoading(true);
-      await api.post('sessions', data);
+      await signIn({ email: data.email, password: data.password });
       // navigation.goBack();
     } catch (error) {
       Alert.alert('Erro ao fazer login');
