@@ -8,22 +8,19 @@ export const LinearGradientButton = styled(LinearGradient).attrs({
   start: { x: 0, y: 0 },
   end: { x: 1, y: 0 },
 })`
-  height: 100%;
+  height: ${metrics.PADDING_SCREEN * 2.5}px;
   width: 100%;
   border-radius: 10px;
-
-  justify-content: center;
-  align-items: center;
+  margin-top: ${metrics.PADDING_SCREEN}px;
 `;
 
 export const Container = styled(RectButton)`
+  height: 100%;
   width: 100%;
-  height: ${metrics.PADDING_SCREEN * 2.5}px;
-  background: #00cc76;
   border-radius: 10px;
-  margin-top: ${metrics.PADDING_SCREEN}px;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 `;
 
 export const ButtonText = styled.Text`

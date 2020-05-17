@@ -8,15 +8,15 @@ interface ButtonProps extends RectButtonProperties {
 }
 
 const Button: React.FC<ButtonProps> = ({ children, style, ...rest }) => (
-  <Container {...rest}>
-    <LinearGradientButton style={style}>
+  <LinearGradientButton style={style}>
+    <Container {...rest}>
       {typeof children === 'string' ? (
         <ButtonText>{children}</ButtonText>
       ) : (
         children
       )}
-    </LinearGradientButton>
-  </Container>
+    </Container>
+  </LinearGradientButton>
 );
 
 export default Button;
