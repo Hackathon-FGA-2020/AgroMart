@@ -14,14 +14,17 @@
     "@react-navigation/bottom-tabs": "^5.4.4",
     "@react-navigation/native": "^5.3.2",
     "@react-navigation/stack": "^5.3.6",
+    "formik": "^2.1.4",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-fast-image": "^8.1.5",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-screens": "^2.7.0",
     "react-native-vector-icons": "^6.6.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "yup": "^0.28.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -30,6 +33,7 @@
     "@types/react-native": "^0.62.0",
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/styled-components": "^5.1.0",
+    "@types/yup": "^0.28.3",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "babel-jest": "^24.9.0",

@@ -1,6 +1,16 @@
-import React from 'react';
-import { Container } from './styles';
+import React, { forwardRef } from 'react';
+import { Container, TInput, TextErrorInput } from './styles';
 
-const Input: React.FC = () => <Container />;
+interface InputProps {
+  icon: string;
+}
 
-export default Input;
+const Input: React.FC<InputProps> = ({ icon, ...rest }, ref) => {
+  return (
+    <Container>
+      <TInput {...rest} ref={ref} />
+      {icon}
+    </Container>
+  );
+};
+export default forwardRef(Input);
