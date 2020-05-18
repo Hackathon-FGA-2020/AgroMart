@@ -24,6 +24,7 @@ export const EyeButton = styled.TouchableOpacity``;
 export const AppName = styled.Text`
   font-size: ${fonts.EXTRA_BIG * 1.5}px;
   margin-bottom: ${metrics.PADDING_SCREEN * 2}px;
+  font-family: MontserratAlternates-Regular;
 `;
 
 export const AnimationCircule = styled.ActivityIndicator.attrs({
@@ -31,4 +32,15 @@ export const AnimationCircule = styled.ActivityIndicator.attrs({
   color: 'white',
 })`
   align-self: center;
+`;
+
+export const BackLoginButton = styled.TouchableOpacity`
+  padding: 25px;
+`;
+
+export const BackLoginButtonText = styled.Text`
+  color: #00aa95;
+  font-size: 18px;
+  font-family: MontserratAlternates-Regular;
+  margin-left: 8px;
 `;

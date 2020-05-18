@@ -4,27 +4,31 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import api from '../../services/api';
+import Feather from 'react-native-vector-icons/Feather';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { useAuth } from '../../hooks/auth';
 import {
   Container,
   Logo,
   EyeButton,
   AnimationCircule,
   AppName,
+  CreateAccountButton,
+  CreateAccountButtonText,
 } from './styles';
 
 const SignIn: React.FC = () => {
   const passwordRef = useRef<TextInput | any>();
   const [passwordSecure, setPasswordSecure] = useState(true);
   const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
   // const navigation = useNavigation();
 
   const handleSubmit = useCallback(async data => {
     try {
       setLoading(true);
-      await api.post('sessions', data);
+      await signIn({ email: data.email, password: data.password });
       // navigation.goBack();
     } catch (error) {
       Alert.alert('Erro ao fazer login');
@@ -67,6 +71,7 @@ const SignIn: React.FC = () => {
         value={formik.values.email}
         onChangeText={formik.handleChange('email')}
         icon={<MaterialIcons name="email" color="#9f9f9f" size={20} />}
+        hasError={formik.touched.email && !!formik.errors.email}
       />
       <Input
         placeholder="Senha"
@@ -78,11 +83,21 @@ const SignIn: React.FC = () => {
         onSubmitEditing={formik.submitForm}
         value={formik.values.password}
         onChangeText={formik.handleChange('password')}
-        icon={<ButtonPasswordSecure />}
+        icon={<MaterialIcons name="lock" color="#9f9f9f" size={20} />}
+        passLock={<ButtonPasswordSecure />}
+        hasError={formik.touched.email && !!formik.errors.password}
       />
       <Button onPress={formik.submitForm}>
         {loading ? <AnimationCircule /> : 'Logar'}
       </Button>
+      <CreateAccountButton
+        onPress={() => {
+          // navigation.push('SingUp');
+        }}
+      >
+        <Feather name="log-in" size={20} color="#00AA95" />
+        <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+      </CreateAccountButton>
     </Container>
   );
 };

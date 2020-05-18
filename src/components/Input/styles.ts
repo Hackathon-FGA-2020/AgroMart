@@ -1,10 +1,14 @@
 import styled from 'styled-components/native';
 import { metrics, fonts } from '../../styles';
 
-export const Container = styled.View`
+interface ContainerProps {
+  hasError?: boolean;
+}
+
+export const Container = styled.View<ContainerProps>`
   padding: 0 15px;
   height: 45px;
-  border: #bfc6c5;
+  border: ${props => (props.hasError ? 'red' : '#bfc6c5')};
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
