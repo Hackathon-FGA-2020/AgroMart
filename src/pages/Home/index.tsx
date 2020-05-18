@@ -8,24 +8,30 @@ import {
   TitleCard,
   LocationCard,
   HeaderCarrossel,
+  HeaderProfile,
+  PictureProfile,
+  TitleProfile,
 } from './styles';
+import { metrics, fonts } from '../../styles';
 
-const SLIDER_WIDTH = Dimensions.get('window').width;
 const _renderItem = ({ item, index }) => {
   return <PictureCard key={index} />;
 };
 
 const Home: React.FC = () => {
   const [indexPagination, setIndexPagination] = useState<number>(0);
-  const aref = useRef();
   return (
     <Container>
+      <HeaderProfile>
+        <PictureProfile />
+        <TitleProfile>Ola, Caio</TitleProfile>
+      </HeaderProfile>
       <HeaderCarrossel>
         <Carousel
           data={[1, 2, 3]}
           renderItem={_renderItem}
           onSnapToItem={index => setIndexPagination(index)}
-          sliderWidth={SLIDER_WIDTH}
+          sliderWidth={metrics.SCREEN_WIDTH}
           itemWidth={300}
           useScrollView
         />
