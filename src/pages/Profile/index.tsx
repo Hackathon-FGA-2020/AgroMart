@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View } from 'react-native';
-import { Container, Title, BodyText, BodyView } from './styles';
+import { Container, Title, BodyText, BodyView, PictureProfile } from './styles';
 import Buttom from '../../components/Button';
 import Input from '../../components/Input';
 
@@ -30,6 +30,9 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
+      <View style={{ paddingBottom: 40 }}>
+        <PictureProfile />
+      </View>
       <Title>Informações Pessoais :</Title>
       <Input label="Nome" editable={false} placeholder={name} />
       <Input label="Email" editable={false} placeholder={email} />
