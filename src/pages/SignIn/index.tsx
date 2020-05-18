@@ -71,6 +71,7 @@ const SignIn: React.FC = () => {
         value={formik.values.email}
         onChangeText={formik.handleChange('email')}
         icon={<MaterialIcons name="email" color="#9f9f9f" size={20} />}
+        hasError={formik.touched.email && !!formik.errors.email}
       />
       <Input
         placeholder="Senha"
@@ -84,6 +85,7 @@ const SignIn: React.FC = () => {
         onChangeText={formik.handleChange('password')}
         icon={<MaterialIcons name="lock" color="#9f9f9f" size={20} />}
         passLock={<ButtonPasswordSecure />}
+        hasError={formik.touched.email && !!formik.errors.password}
       />
       <Button onPress={formik.submitForm}>
         {loading ? <AnimationCircule /> : 'Logar'}

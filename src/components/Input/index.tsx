@@ -1,14 +1,18 @@
 import React, { forwardRef } from 'react';
-import { Container, TInput, TextErrorInput } from './styles';
+import { Container, TInput } from './styles';
 
 interface InputProps {
   icon: string;
   passLock?: string;
+  hasError?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ icon, passLock, ...rest }, ref) => {
+const Input: React.FC<InputProps> = (
+  { icon, passLock, hasError, ...rest },
+  ref,
+) => {
   return (
-    <Container>
+    <Container hasError={hasError}>
       {icon}
       <TInput {...rest} ref={ref} />
       {passLock}
