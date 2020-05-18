@@ -27,3 +27,9 @@ export const TextErrorInput = styled.Text`
   align-self: stretch;
   color: red;
 `;
+
+export const TextLabel = styled.Text`
+  font-size: 20px;
+  padding: 5px;
+  font-family: MontserratAlternates-Regular;
+`;
