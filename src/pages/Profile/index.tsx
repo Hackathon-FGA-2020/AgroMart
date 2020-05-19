@@ -1,30 +1,63 @@
-import React, { useState, useCallback } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
-import { View } from 'react-native';
-import { Container, Title, BodyText, BodyView, PictureProfile } from './styles';
-import Buttom from '../../components/Button';
+import React, { useState, useCallback, useEffect } from 'react';
+import { View, Alert } from 'react-native';
+import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
+import {
+  Container,
+  Title,
+  BodyText,
+  BodyView,
+  PictureProfile,
+  ButtonsContainer,
+} from './styles';
+import Button from '../../components/Button';
+import DeleteButton from '../../components/DeleteButton';
 import Input from '../../components/Input';
 
+interface User {
+  name: string;
+  email: string;
+  id: string;
+}
+
 const Profile: React.FC = () => {
+  const { user } = useAuth();
   const [hasStore, setHasStore] = useState(false);
-  const [name, setName] = useState('');
-  const [email, seEmail] = useState('');
+  const [userInfo, setUserInfo] = useState<User | null>(null);
+
+  const changeUserHasStore = useCallback(async () => {
+    try {
+      await api.post(`stores/${userInfo?.id}`);
+      Alert.alert('tem loja');
+      setHasStore(true);
+    } catch (error) {
+      Alert.alert('Não foi possível carregar informação de loja');
+    }
+  }, []);
+
+  useEffect(() => {
+    setUserInfo(user as User);
+  }, [user]);
+
+  useEffect(() => {
+    changeUserHasStore();
+  }, [changeUserHasStore]);
 
   const userHasStore = useCallback(() => {
     return (
       <BodyView>
         <BodyText>Você ainda não possui uma loja ! </BodyText>
-        <Buttom>Cadastrar loja</Buttom>
+        <Button>Cadastrar loja</Button>
       </BodyView>
     );
   }, []);
 
   const userDosentHasStore = useCallback(() => {
     return (
-      <View>
-        <Buttom>Cadastrar loja</Buttom>
-        <Buttom>Excluir loja</Buttom>
-      </View>
+      <ButtonsContainer>
+        <Button>Cadastrar loja</Button>
+        <DeleteButton>Excluir loja</DeleteButton>
+      </ButtonsContainer>
     );
   }, []);
 
@@ -34,8 +67,12 @@ const Profile: React.FC = () => {
         <PictureProfile />
       </View>
       <Title>Informações Pessoais :</Title>
-      <Input label="Nome" editable={false} placeholder={name} />
-      <Input label="Email" editable={false} placeholder={email} />
+      {userInfo ? (
+        <>
+          <Input label="Nome" value={userInfo.name} editable={false} />
+          <Input label="Email" value={userInfo.email} editable={false} />
+        </>
+      ) : null}
       {hasStore ? userHasStore() : userDosentHasStore()}
     </Container>
   );

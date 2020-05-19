@@ -3,7 +3,7 @@ import './config/ReactotronConfig';
 import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import SignIn from './pages/SignIn';
+import Profile from './pages/Profile';
 import AppProvider from './hooks';
 import Routes from './routes';
 
@@ -13,7 +13,7 @@ const App: React.FC = () => (
     <AppProvider>
       <View style={{ flex: 1, backgroundColor: '#EAEAEA' }}>
         {/* <Routes /> */}
-        <SignIn />
+        <Profile />
       </View>
     </AppProvider>
   </NavigationContainer>

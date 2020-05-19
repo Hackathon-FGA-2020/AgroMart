@@ -12,6 +12,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   font-size: 24px;
   font-family: MontserratAlternates-Regular;
+  margin-bottom: 10px;
 `;
 
 export const BodyText = styled.Text`
@@ -32,4 +33,8 @@ export const PictureProfile = styled(FastImage).attrs({
   height: ${metrics.PADDING_SCREEN * 5}px;
   width: ${metrics.PADDING_SCREEN * 5}px;
   border-radius: ${metrics.PADDING_SCREEN * 3.5}px;
+`;
+
+export const ButtonsContainer = styled.View`
+  margin-top: 30px;
 `;

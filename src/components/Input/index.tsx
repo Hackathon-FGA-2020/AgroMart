@@ -13,12 +13,14 @@ const Input: React.FC<InputProps> = (
   ref,
 ) => {
   return (
-    <Container hasError={hasError}>
+    <>
       <TextLabel>{label}</TextLabel>
-      {icon}
-      <TInput {...rest} ref={ref} />
-      {passLock}
-    </Container>
+      <Container hasError={hasError}>
+        {icon}
+        <TInput {...rest} ref={ref} />
+        {passLock}
+      </Container>
+    </>
   );
 };
 export default forwardRef(Input);
