@@ -27,11 +27,10 @@ const Profile: React.FC = () => {
 
   const changeUserHasStore = useCallback(async () => {
     try {
-      await api.post(`stores/${userInfo?.id}`);
-      Alert.alert('tem loja');
+      await api.get(`stores/${userInfo?.id}`);
       setHasStore(true);
     } catch (error) {
-      Alert.alert('Não foi possível carregar informação de loja');
+      setHasStore(false);
     }
   }, []);
 
@@ -63,7 +62,7 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <View style={{ paddingBottom: 40 }}>
+      <View style={{ paddingBottom: 40, alignSelf: 'center' }}>
         <PictureProfile />
       </View>
       <Title>Informações Pessoais :</Title>
