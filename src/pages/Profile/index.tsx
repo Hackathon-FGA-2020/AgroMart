@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
     changeUserHasStore();
   }, [changeUserHasStore]);
 
-  const userHasStore = useCallback(() => {
+  const userDosentHasStore = useCallback(() => {
     return (
       <BodyView>
         <BodyText>Você ainda não possui uma loja ! </BodyText>
@@ -52,10 +52,10 @@ const Profile: React.FC = () => {
     );
   }, []);
 
-  const userDosentHasStore = useCallback(() => {
+  const userHasStore = useCallback(() => {
     return (
       <ButtonsContainer>
-        <Button>Cadastrar loja</Button>
+        <Button>Editar Loja</Button>
         <DeleteButton>Excluir loja</DeleteButton>
       </ButtonsContainer>
     );
