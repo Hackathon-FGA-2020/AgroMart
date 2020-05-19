@@ -42,15 +42,19 @@ const AuthProvider: React.FC = ({ children }) => {
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
+
+      api.defaults.headers.Authorization = `Bearer ${token}`;
     }
 
     loadStorageData();
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const reseponse = await api.post('sessions', { email, password });
+    const response = await api.post('sessions', { email, password });
 
-    const { token, user } = reseponse.data;
+    const { token, user } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
     await AsyncStorage.multiSet([
       ['@AgroMart:token', token],
