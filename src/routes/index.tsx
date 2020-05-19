@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Home from '../pages/Home';
 import Search from '../pages/Search';
 import MapView from '../pages/MapView';
-import Recomendations from '../pages/Recomendations';
+import Recommendations from '../pages/Recommendations';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +15,7 @@ const TabRoutes: React.FC = () => (
     tabBarOptions={{
       activeTintColor: '#00AA95',
       inactiveTintColor: '#292929',
+      showLabel: false,
     }}
   >
     <Tab.Screen
@@ -46,7 +47,7 @@ const TabRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Recomendations"
-      component={Recomendations}
+      component={Recommendations}
       options={{
         tabBarIcon: ({ color, size }) => (
           <Icon name="info" color={color} size={size} />
