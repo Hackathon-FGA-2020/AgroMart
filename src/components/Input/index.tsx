@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { TextInput } from 'react-native';
 import { Container, TInput, TextLabel } from './styles';
 
 interface InputProps {
@@ -8,13 +9,13 @@ interface InputProps {
   label?: string;
 }
 
-const Input: React.FC<InputProps> = (
+const Input: React.RefForwardingComponent<TextInput, InputProps> = (
   { icon, passLock, hasError, label, ...rest },
   ref,
 ) => {
   return (
     <>
-      <TextLabel>{label}</TextLabel>
+      {label && <TextLabel>{label}</TextLabel>}
       <Container hasError={hasError}>
         {icon}
         <TInput {...rest} ref={ref} />

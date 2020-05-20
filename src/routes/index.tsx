@@ -1,60 +1,43 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Feather';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from '../pages/Home';
-import Search from '../pages/Search';
-import MapView from '../pages/MapView';
-import Recommendations from '../pages/Recommendations';
+import TabRoutes from './tab.routes';
 
-const Tab = createBottomTabNavigator();
+import StoreDetail from '../pages/StoreDetail';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
+import Profile from '../pages/Profile';
 
-const TabRoutes: React.FC = () => (
-  <Tab.Navigator
-    initialRouteName="Home"
-    tabBarOptions={{
-      activeTintColor: '#00AA95',
-      inactiveTintColor: '#292929',
-      showLabel: false,
-    }}
-  >
-    <Tab.Screen
-      name="Home"
-      component={Home}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="home" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Search"
-      component={Search}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="search" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="MapView"
-      component={MapView}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="map" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Recomendations"
-      component={Recommendations}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="info" color={color} size={size} />
-        ),
-      }}
-    />
-  </Tab.Navigator>
-);
+import { useAuth } from '../hooks/auth';
 
-export default TabRoutes;
+const App = createStackNavigator();
+
+const Routes: React.FC = () => {
+  const { user } = useAuth();
+
+  return (
+    <App.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#fff' },
+      }}
+    >
+      <App.Screen name="Home" component={TabRoutes} />
+
+      {user ? (
+        <>
+          <App.Screen name="Profile" component={Profile} />
+        </>
+      ) : (
+        <>
+          <App.Screen name="Profile" component={SignIn} />
+          <App.Screen name="SignUp" component={SignUp} />
+        </>
+      )}
+
+      <App.Screen name="StoreDetail" component={StoreDetail} />
+    </App.Navigator>
+  );
+};
+
+export default Routes;

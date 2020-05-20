@@ -27,7 +27,7 @@ export const CityText = styled.Text`
   align-self: center;
   font-family: MontserratAlternates-Regular;
   color: #fff;
-  font-size: ${fonts.EXTRA_MEDIUM}px;
+  font-size: ${fonts.SMALL}px;
 `;
 
 export const CardMask = styled.View`
