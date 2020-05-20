@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import FastImage from 'react-native-fast-image';
+import FastImage, { FastImageProps } from 'react-native-fast-image';
 import { metrics, fonts } from '../../styles';
 import { PLANTIO, PROFISSAO } from '../../assets/images';
 
@@ -8,7 +8,7 @@ export const Container = styled.ScrollView`
 `;
 
 export const HeaderCarrossel = styled.View`
-  margin-bottom: ${metrics.PADDING_SCREEN * 2}px;
+  margin-bottom: ${metrics.PADDING_SCREEN * 0.6}px;
 `;
 
 export const HeaderProfile = styled.View`
@@ -29,7 +29,7 @@ export const Card = styled.View.attrs({
   align-self: stretch;
   align-items: center;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: ${metrics.PADDING_SCREEN * 0.5}px;
   margin-left: ${metrics.PADDING_SCREEN * 1.5}px;
   margin-right: ${metrics.PADDING_SCREEN * 1.5}px;
@@ -67,6 +67,14 @@ export const PictureProfile = styled(FastImage).attrs({
   height: ${metrics.PADDING_SCREEN * 3}px;
   width: ${metrics.PADDING_SCREEN * 3}px;
   border-radius: ${metrics.PADDING_SCREEN * 1.5}px;
+`;
+
+export const PictureCarrousel = styled<any>(FastImage).attrs(props => ({
+  resizeMode: FastImage.resizeMode.contain,
+  source: props.image,
+}))`
+  height: ${metrics.PADDING_SCREEN * 7}px;
+  align-self: stretch;
 `;
 
 export const TitleProfile = styled.Text`
