@@ -23,7 +23,7 @@ Esse repositório é referente ao aplicativo AgroMart desenvolvido em react-nati
 - Pesquisar lojas por região administrativa;
 - Visualização de loja com produtos e preços;
 - Link para contato com o dono da loja;
-- LInk para localização da loja;
+- LInk com a rota para a loja;
 - Visualizar principais recomendações perante a pandemia;
 
 ---
