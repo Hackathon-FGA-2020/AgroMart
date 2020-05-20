@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { Dimensions } from 'react-native';
+import { CARROUSEL1, CARROUSEL2, CARROUSEL3 } from '../../assets/images';
+
 import {
   Container,
   Card,
@@ -11,28 +12,30 @@ import {
   HeaderProfile,
   PictureProfile,
   TitleProfile,
+  PictureCarrousel,
 } from './styles';
 import { metrics, fonts } from '../../styles';
 
+
 const _renderItem = ({ item, index }) => {
-  return <PictureCard key={index} />;
+  return <PictureCarrousel image={item} />;
 };
 
-const Home: React.FC = () => {
-  const [indexPagination, setIndexPagination] = useState<number>(0);
+const Home = () => {
+  const [indexPagination, setIndexPagination] = useState(0);
   return (
-    <Container>
+    <Container showsVerticalScrollIndicator={false}>
       <HeaderProfile>
         <PictureProfile />
         <TitleProfile>Ola, Caio</TitleProfile>
       </HeaderProfile>
       <HeaderCarrossel>
         <Carousel
-          data={[1, 2, 3]}
+          data={[CARROUSEL1, CARROUSEL2, CARROUSEL3]}
           renderItem={_renderItem}
           onSnapToItem={index => setIndexPagination(index)}
           sliderWidth={metrics.SCREEN_WIDTH}
-          itemWidth={300}
+          itemWidth={metrics.SCREEN_WIDTH}
           useScrollView
         />
         <Pagination
@@ -40,12 +43,14 @@ const Home: React.FC = () => {
           activeDotIndex={indexPagination}
           containerStyle={{
             paddingVertical: 0,
+            top: -20,
           }}
           dotStyle={{
             width: 10,
             height: 10,
             borderRadius: 5,
-            backgroundColor: '#00AA95',
+            borderColor: '#000',
+            backgroundColor: '#000',
           }}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.6}
