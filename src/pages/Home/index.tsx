@@ -14,14 +14,13 @@ import {
   TitleProfile,
   PictureCarrousel,
 } from './styles';
-import { metrics, fonts } from '../../styles';
+import { metrics } from '../../styles';
 
-
-const _renderItem = ({ item, index }) => {
+const _renderItem: any = ({ item }) => {
   return <PictureCarrousel image={item} />;
 };
 
-const Home = () => {
+const Home: React.FC = () => {
   const [indexPagination, setIndexPagination] = useState(0);
   return (
     <Container showsVerticalScrollIndicator={false}>

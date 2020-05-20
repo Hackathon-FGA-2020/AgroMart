@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import FastImage from 'react-native-fast-image';
+import FastImage, { FastImageProps } from 'react-native-fast-image';
 import { metrics, fonts } from '../../styles';
 import { PLANTIO, PROFISSAO } from '../../assets/images';
 
@@ -69,12 +69,12 @@ export const PictureProfile = styled(FastImage).attrs({
   border-radius: ${metrics.PADDING_SCREEN * 1.5}px;
 `;
 
-export const PictureCarrousel = styled(FastImage).attrs(props => ({
+export const PictureCarrousel = styled<any>(FastImage).attrs(props => ({
   resizeMode: FastImage.resizeMode.contain,
   source: props.image,
 }))`
   height: ${metrics.PADDING_SCREEN * 7}px;
-  align-self: stretch
+  align-self: stretch;
 `;
 
 export const TitleProfile = styled.Text`
