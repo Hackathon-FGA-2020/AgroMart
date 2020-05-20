@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
   const confirmPasswordRef = useRef<TextInput | any>();
   const [passwordSecure, setPasswordSecure] = useState(true);
   const [loading, setLoading] = useState(false);
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handleSubmit = useCallback(async data => {
     try {
@@ -35,7 +35,7 @@ const SignIn: React.FC = () => {
         password: data.password,
       };
       await api.post('users', body);
-      // navigation.goBack();
+      navigation.goBack();
     } catch (error) {
       Alert.alert('Erro ao cadastrar usuario');
     }
@@ -130,7 +130,7 @@ const SignIn: React.FC = () => {
         </Button>
         <BackLoginButton
           onPress={() => {
-            // navigation.goBack();
+            navigation.goBack();
           }}
         >
           <BackLoginButtonText>Voltar para o Login</BackLoginButtonText>

@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           <PictureProfile />
           <TitleProfile>
             Ola,
-            {user && user.name}
+            {user && ` ${user.name}`}
           </TitleProfile>
         </HeaderProfile>
       </TouchableOpacity>

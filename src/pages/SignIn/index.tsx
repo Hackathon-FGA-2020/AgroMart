@@ -5,9 +5,12 @@ import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
+
+import { useAuth } from '../../hooks/auth';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
   Logo,
@@ -23,13 +26,13 @@ const SignIn: React.FC = () => {
   const [passwordSecure, setPasswordSecure] = useState(true);
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handleSubmit = useCallback(async data => {
     try {
       setLoading(true);
       await signIn({ email: data.email, password: data.password });
-      // navigation.goBack();
+      navigation.goBack();
     } catch (error) {
       Alert.alert('Erro ao fazer login');
     }
@@ -92,7 +95,7 @@ const SignIn: React.FC = () => {
       </Button>
       <CreateAccountButton
         onPress={() => {
-          // navigation.push('SingUp');
+          navigation.navigate('SignUp');
         }}
       >
         <Feather name="log-in" size={20} color="#00AA95" />
