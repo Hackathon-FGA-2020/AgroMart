@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api';
+
+import { useAuth } from '../../hooks/auth';
 
 import { CARROUSEL1, CARROUSEL2, CARROUSEL3 } from '../../assets/images';
 import { metrics } from '../../styles';
@@ -34,6 +37,10 @@ const Home: React.FC = () => {
   const [indexPagination, setIndexPagination] = useState(0);
   const [stores, setStores] = useState<Store[]>([]);
 
+  const { user } = useAuth();
+
+  const navigation = useNavigation();
+
   useEffect(() => {
     async function getStores(): Promise<void> {
       const response = await api.get('/stores');
@@ -46,10 +53,13 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <HeaderProfile>
           <PictureProfile />
-          <TitleProfile>Ola, Caio</TitleProfile>
+          <TitleProfile>
+            Ola,
+            {user && user.name}
+          </TitleProfile>
         </HeaderProfile>
       </TouchableOpacity>
 

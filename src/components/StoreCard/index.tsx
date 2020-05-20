@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Card, PictureCard, TitleCard, LocationCard } from './styles';
 
@@ -11,8 +12,10 @@ interface StoreCardProps {
 }
 
 const StoreCard: React.FC<StoreCardProps> = ({ id, bannerUrl, name, city }) => {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('StoreDetail')}>
       <Card>
         <PictureCard
           source={{ uri: `http://10.0.2.2:3333/files/${bannerUrl}` }}
