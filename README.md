@@ -16,7 +16,7 @@ Esse repositório é referente ao aplicativo AgroMart desenvolvido em react-nati
 
 ## Funcionalidades
 - Criação de conta de usuário e Autenticação;
-- Criação loja;
+- Criação e gerenciamento de loja;
 - Visualização de principais recomendações e listagem de todas as lojas na página principal;
 - Pesquisar lojas por localização;
 - Pesquisar lojas por nome;
