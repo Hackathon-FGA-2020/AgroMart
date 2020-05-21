@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 import { metrics, fonts } from '../../styles';
-import { PLANTIO } from '../../assets/images';
 
 export const Card = styled.View.attrs({
   shadowOffset: { height: 0, width: 0 },
