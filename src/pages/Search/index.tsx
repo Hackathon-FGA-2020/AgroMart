@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, FlatList, ScrollView, View } from 'react-native';
+import { Text, FlatList, ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
@@ -45,7 +45,7 @@ const Search: React.FC = () => {
         icon={<MaterialIcons name="search" color="#9f9f9f" size={20} />}
       />
       {search ? (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1, marginTop: '4%' }}>
           {results.length ? (
             results.map((item: Store) => (
               <StoreCard

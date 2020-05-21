@@ -4,7 +4,6 @@ import { metrics, fonts } from '../../styles';
 export const Container = styled.View`
   flex: 1;
   padding: 2%;
-  align-items: center;
 `;
 
 export const CardsContainer = styled.View`

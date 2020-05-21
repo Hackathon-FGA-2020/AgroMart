@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, ScrollView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import api from '../../services/api';
 
 import StoreCard from '../../components/StoreCard';
@@ -33,7 +33,7 @@ const CitySearchResult: React.FC = () => {
 
   return (
     <Container>
-      <ScrollView>
+      <ScrollView style={{ marginTop: '4%' }}>
         {results.length ? (
           results.map((item: Store) => (
             <StoreCard
