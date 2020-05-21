@@ -1,32 +1,35 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useEffect, useCallback } from 'react';
-import { Image, Text } from 'react-native';
+import { Text, FlatList, ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
+import StoreCard from '../../components/StoreCard';
 import Input from '../../components/Input';
 
-import {
-  Container,
-  CardsContainer,
-  CardCity,
-  CityText,
-  CardMask,
-} from './styles';
+import { Container, CardCity, CityText, CardMask, CityImage } from './styles';
+
+interface Store {
+  id: string;
+  name: string;
+  city: string;
+  banner: string;
+}
 
 const Search: React.FC = () => {
+  const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
 
   const handleSearch = useCallback(async () => {
     try {
-      const body = { name: search };
-      const response = await api.post('stores', body);
+      const response = await api.get(`stores?name=${search}`);
       setResults(response.data);
     } catch (error) {
       setResults([]);
     }
-  }, []);
+  }, [search]);
 
   useEffect(() => {
     handleSearch();
@@ -42,31 +45,42 @@ const Search: React.FC = () => {
         icon={<MaterialIcons name="search" color="#9f9f9f" size={20} />}
       />
       {search ? (
-        <ScrollView>
+        <ScrollView style={{ flex: 1, marginTop: '4%' }}>
           {results.length ? (
-            // Mudar item para Card
-            results.map(item => <Text>{item}</Text>)
+            results.map((item: Store) => (
+              <StoreCard
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                city={item.city}
+                bannerUrl={item.banner}
+              />
+            ))
           ) : (
             <Text>Nenhum resultado encontrado</Text>
           )}
         </ScrollView>
       ) : (
-        <ScrollView>
-          <CardsContainer>
-            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
-            {data.map(item => (
-              <CardCity>
+        <>
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <CardCity
+                onPress={() => navigation.navigate('CitySearchResult', item)}
+              >
                 <CardMask>
                   <CityText>{item.city}</CityText>
                 </CardMask>
-                <Image
-                  source={{ uri: item.urlImage }}
-                  style={{ width: 160, height: 160 }}
-                />
+                <CityImage source={{ uri: item.urlImage }} />
               </CardCity>
-            ))}
-          </CardsContainer>
-        </ScrollView>
+            )}
+            horizontal={false}
+            keyExtractor={item => item.city}
+            numColumns={2}
+            key={data.length}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
       )}
     </Container>
   );

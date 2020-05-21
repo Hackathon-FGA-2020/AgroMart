@@ -3,9 +3,7 @@ import { metrics, fonts } from '../../styles';
 
 export const Container = styled.View`
   flex: 1;
-  margin-top: -10%;
-  padding: ${metrics.PADDING_SCREEN * 1.5}px;
-  align-items: center;
+  padding: 2%;
 `;
 
 export const CardsContainer = styled.View`
@@ -33,8 +31,13 @@ export const CityText = styled.Text`
 export const CardMask = styled.View`
   position: absolute;
   justify-content: center;
-  width: 160px;
-  height: 160px;
+  width: ${metrics.SCREEN_WIDTH * 0.41}px;
+  height: ${metrics.SCREEN_WIDTH * 0.41}px;
   z-index: 1;
   background: rgba(1, 1, 1, 0.2);
+`;
+
+export const CityImage = styled.Image`
+  width: ${metrics.SCREEN_WIDTH * 0.41}px;
+  height: ${metrics.SCREEN_WIDTH * 0.41}px;
 `;
