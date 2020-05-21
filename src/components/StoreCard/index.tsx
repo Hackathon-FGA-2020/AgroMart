@@ -15,7 +15,9 @@ const StoreCard: React.FC<StoreCardProps> = ({ id, bannerUrl, name, city }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('StoreDetail')}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('StoreDetail', { storeId: id })}
+    >
       <Card>
         <PictureCard
           source={{ uri: `http://localhost:3333/files/${bannerUrl}` }}

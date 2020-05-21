@@ -5,14 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppProvider from './hooks';
 import Routes from './routes';
+import StoreDetail from './pages/StoreDetail';
 
 const App: React.FC = () => (
   <NavigationContainer>
     <StatusBar barStyle="dark-content" backgroundColor="#EAEAEA" />
     <AppProvider>
-      <View style={{ flex: 1, backgroundColor: '#EAEAEA' }}>
-        <Routes />
-      </View>
+      <Routes />
     </AppProvider>
   </NavigationContainer>
 );

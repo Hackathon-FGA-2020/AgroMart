@@ -1,70 +1,127 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRoute } from '@react-navigation/native';
+
+import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
-  ContainerD,
+  Content,
   CustomImage,
+  Header,
   Title,
-  Subtitle,
-  Divider,
-  HeaderRow,
-  IconsCircle,
-  IconsRow,
-  BodyTitle,
-  Description,
-  SingleProduct,
-  ProductName,
-  DescriptionView,
+  RowView,
+  ContentText,
+  IconView,
+  Body,
+  SubTitle,
 } from './styles';
 
+interface Location {
+  latitude: string;
+  longitude: string;
+}
+
+interface Product {
+  price: number;
+  name: string;
+}
+
+interface StoreProps {
+  id: string;
+  banner: string;
+  name: string;
+  city: string;
+  contact_number: string;
+  description: string;
+  open_at: string;
+  close_at: string;
+  localization: Location;
+  products: Product[];
+}
+
 const StoreDetail: React.FC = () => {
-  const handleWhatsAppMessage = useCallback(async () => {
-    await Linking.openURL(`https://wa.me/5561981796897`).catch(err =>
-      console.log(err),
-    );
+  const [storeInfo, setStoreInfo] = useState({} as StoreProps);
+
+  const { user } = useAuth();
+  const { params } = useRoute();
+
+  useEffect(() => {
+    async function getStoreData(): Promise<void> {
+      try {
+        const response = await api.get(`stores/${params?.storeId}`);
+        setStoreInfo(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getStoreData();
+  }, [params]);
+
+  const handleWhatsAppMessage = useCallback(
+    async (phoneNumber: string): Promise<void> => {
+      await Linking.openURL(`https://wa.me/55${phoneNumber}`).catch(err =>
+        console.log(err),
+      );
+    },
+    [],
+  );
+
+  const handleOpenMap = useCallback(async (location: Location): Promise<
+    void
+  > => {
+    const scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+    const url = `${scheme}${location.latitude},${location.longitude}`;
+
+    // console.log(storeInfo.localization.latitude);
+
+    Linking.openURL(url).catch(err => console.log(err));
   }, []);
 
   return (
     <Container>
       <CustomImage
         source={{
-          uri:
-            'https://lh3.googleusercontent.com/proxy/1dLY00Aw46RsGVuAFTEcwVCO9Y4T3HoTiPPVLFy-MefC8HMuWLewr2DRtSTAOTACONgSThaFj0i8rOj_AvtToVVZjw',
+          uri: `http://10.0.2.2:3333/files/${storeInfo.banner}`,
+          // uri: `http://localhost:3333/files/${storeInfo.banner}`,
         }}
       />
-      <ContainerD>
-        <Title>Fazenda Cenourão</Title>
-        <HeaderRow>
-          <Subtitle>Brazlandia</Subtitle>
-          <IconsRow>
-            <TouchableOpacity onPress={handleWhatsAppMessage}>
-              <IconsCircle>
-                <Icon name="whatsapp" size={20} color="#fff" />
-              </IconsCircle>
-            </TouchableOpacity>
-            <IconsCircle>
-              <Icon name="routes" size={20} color="#fff" />
-            </IconsCircle>
-          </IconsRow>
-        </HeaderRow>
-        <Divider />
-        <ScrollView>
-          <DescriptionView>
-            <BodyTitle>Descrição :</BodyTitle>
-            <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Description>
-          </DescriptionView>
-          <DescriptionView>
-            <BodyTitle>Produtos :</BodyTitle>
-            <SingleProduct>
-              <ProductName>- Alface</ProductName>
-              <ProductName>$10</ProductName>
-            </SingleProduct>
-          </DescriptionView>
-        </ScrollView>
-      </ContainerD>
+      <Content>
+        <Header>
+          <Title>{storeInfo.name}</Title>
+          <RowView>
+            <ContentText>{storeInfo.city}</ContentText>
+            <RowView>
+              <IconView
+                onPress={() => handleWhatsAppMessage(storeInfo.contact_number)}
+              >
+                <Icon name="whatsapp" size={23} color="#fff" />
+              </IconView>
+              <IconView onPress={() => handleOpenMap(storeInfo.localization)}>
+                <Icon name="routes" size={23} color="#fff" />
+              </IconView>
+            </RowView>
+          </RowView>
+        </Header>
+
+        <Body contentContainerStyle={{ flex: 1 }}>
+          <SubTitle>Descrição</SubTitle>
+          <ContentText>{storeInfo.description}</ContentText>
+          <ContentText>{`Abre das ${storeInfo.open_at} ás ${storeInfo.close_at}`}</ContentText>
+
+          <SubTitle>Produtos</SubTitle>
+          {storeInfo.products &&
+            storeInfo.products.map(product => (
+              <RowView key={product.name}>
+                <ContentText>{`- ${product.name}`}</ContentText>
+                <ContentText>{`R$ ${product.price}`}</ContentText>
+              </RowView>
+            ))}
+        </Body>
+      </Content>
     </Container>
   );
 };
