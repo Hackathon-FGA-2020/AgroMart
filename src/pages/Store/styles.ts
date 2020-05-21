@@ -18,6 +18,13 @@ export const PictureStore = styled<any>(FastImage).attrs(props => ({
   margin-bottom: ${metrics.PADDING_SCREEN}px;
 `;
 
+export const AnimationCircule = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: 'white',
+})`
+  align-self: center;
+`;
+
 export const DropDownButton = styled.View`
   border: #bfc6c5;
   border-radius: 10px;

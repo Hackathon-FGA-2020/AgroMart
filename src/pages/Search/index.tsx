@@ -237,3 +237,5 @@ const data = [
       'https://lh3.googleusercontent.com/proxy/KAtcAXDyncv7k4AYTOlMxfVYtgWpjdHGgNyXD5YMYWh6VU6XZlO5F_lhcDaL5-0nxsPJNiytzzOxg9PvvpBNGk6nPb80Lxd8cplT7TPhzS8Jeg6OSub19kIS1xAFGcd_VVIk0CiS',
   },
 ];
+
+export { data };
