@@ -1,35 +1,33 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  ScrollView,
-  TouchableOpacity,
-  Linking,
-  View,
-  Text,
-  Platform,
-} from 'react-native';
+import { Linking, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRoute } from '@react-navigation/native';
+
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
-  ContainerD,
+  Content,
   CustomImage,
+  Header,
   Title,
-  Subtitle,
-  Divider,
-  HeaderRow,
-  IconsCircle,
-  IconsRow,
-  BodyTitle,
-  Description,
-  SingleProduct,
-  ProductText,
-  DescriptionView,
-  HourText,
-  HourView,
+  RowView,
+  ContentText,
+  IconView,
+  Body,
+  SubTitle,
 } from './styles';
+
+interface Location {
+  latitude: string;
+  longitude: string;
+}
+
+interface Product {
+  price: number;
+  name: string;
+}
 
 interface StoreProps {
   id: string;
@@ -40,114 +38,90 @@ interface StoreProps {
   description: string;
   open_at: string;
   close_at: string;
-  localization: object;
-  products: Array<any>;
+  localization: Location;
+  products: Product[];
 }
 
 const StoreDetail: React.FC = () => {
-  const route = useRoute();
-  const { user } = useAuth();
   const [storeInfo, setStoreInfo] = useState({} as StoreProps);
 
-  const getStoreData = useCallback(async () => {
-    try {
-      const response = await api.get(`stores/${route.params?.storeId}`);
-      setStoreInfo(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [route.params]);
+  const { user } = useAuth();
+  const { params } = useRoute();
 
   useEffect(() => {
-    getStoreData();
-  }, [getStoreData]);
-
-  const isLogged = useCallback(async () => {
-    if (user === undefined) {
-      return false;
+    async function getStoreData(): Promise<void> {
+      try {
+        const response = await api.get(`stores/${params?.storeId}`);
+        setStoreInfo(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    return true;
-  }, []);
 
-  const handleWhatsAppMessage = useCallback(async () => {
-    await Linking.openURL(
-      `https://wa.me/55${storeInfo.contact_number}`,
-    ).catch(err => console.log(err));
-  }, []);
+    getStoreData();
+  }, [params]);
 
-  const teste = useCallback(async () => {
+  const handleWhatsAppMessage = useCallback(
+    async (phoneNumber: string): Promise<void> => {
+      await Linking.openURL(`https://wa.me/55${phoneNumber}`).catch(err =>
+        console.log(err),
+      );
+    },
+    [],
+  );
+
+  const handleOpenMap = useCallback(async (location: Location): Promise<
+    void
+  > => {
     const scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-    const url = `${scheme}${storeInfo.localization?.latitude},${storeInfo.localization?.longitude}`;
-    console.log(storeInfo.localization.latitude);
-    Linking.openURL(url);
-  }, []);
+    const url = `${scheme}${location.latitude},${location.longitude}`;
 
-  const loggedButtons = useCallback(() => {
-    return (
-      <IconsRow>
-        <TouchableOpacity onPress={handleWhatsAppMessage}>
-          <IconsCircle>
-            <Icon name="whatsapp" size={20} color="#fff" />
-          </IconsCircle>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={teste}>
-          <IconsCircle>
-            <Icon name="routes" size={20} color="#fff" />
-          </IconsCircle>
-        </TouchableOpacity>
-      </IconsRow>
-    );
+    // console.log(storeInfo.localization.latitude);
+
+    Linking.openURL(url).catch(err => console.log(err));
   }, []);
 
   return (
     <Container>
       <CustomImage
         source={{
-          uri: `http://localhost:3333/files/${storeInfo.banner}`,
+          uri: `http://10.0.2.2:3333/files/${storeInfo.banner}`,
+          // uri: `http://localhost:3333/files/${storeInfo.banner}`,
         }}
       />
-      <ContainerD>
-        <HeaderRow>
+      <Content>
+        <Header>
           <Title>{storeInfo.name}</Title>
-          <HourView>
-            <HourText>Horário</HourText>
-            <HourText>
-              {storeInfo.open_at}
--{storeInfo.close_at}
-            </HourText>
-          </HourView>
-        </HeaderRow>
-        <HeaderRow>
-          <Subtitle>{storeInfo.city}</Subtitle>
-          {isLogged ? loggedButtons() : <View />}
-        </HeaderRow>
-        <Divider />
-        <ScrollView>
-          <DescriptionView>
-            <BodyTitle>Descrição :</BodyTitle>
-            <Description>{storeInfo.description}</Description>
-          </DescriptionView>
-          <DescriptionView>
-            <BodyTitle>Produtos :</BodyTitle>
-            {storeInfo.products ? (
-              storeInfo.products.map((item: any) => (
-                <SingleProduct>
-                  <ProductText>
-                    -
-{item.name}
-                  </ProductText>
-                  <ProductText>
-                    $
-{item.price}
-                  </ProductText>
-                </SingleProduct>
-              ))
-            ) : (
-              <Text>Produtos não encontrados</Text>
-            )}
-          </DescriptionView>
-        </ScrollView>
-      </ContainerD>
+          <RowView>
+            <ContentText>{storeInfo.city}</ContentText>
+            <RowView>
+              <IconView
+                onPress={() => handleWhatsAppMessage(storeInfo.contact_number)}
+              >
+                <Icon name="whatsapp" size={23} color="#fff" />
+              </IconView>
+              <IconView onPress={() => handleOpenMap(storeInfo.localization)}>
+                <Icon name="routes" size={23} color="#fff" />
+              </IconView>
+            </RowView>
+          </RowView>
+        </Header>
+
+        <Body contentContainerStyle={{ flex: 1 }}>
+          <SubTitle>Descrição</SubTitle>
+          <ContentText>{storeInfo.description}</ContentText>
+          <ContentText>{`Abre das ${storeInfo.open_at} ás ${storeInfo.close_at}`}</ContentText>
+
+          <SubTitle>Produtos</SubTitle>
+          {storeInfo.products &&
+            storeInfo.products.map(product => (
+              <RowView key={product.name}>
+                <ContentText>{`- ${product.name}`}</ContentText>
+                <ContentText>{`R$ ${product.price}`}</ContentText>
+              </RowView>
+            ))}
+        </Body>
+      </Content>
     </Container>
   );
 };
