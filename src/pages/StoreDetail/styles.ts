@@ -77,12 +77,23 @@ export const SingleProduct = styled.View`
   justify-content: space-between;
   width: 100%;
 `;
-export const ProductName = styled.Text`
+export const ProductText = styled.Text`
   font-family: MontserratAlternates-Regular;
+  font-size: ${fonts.MEDIUM}px;
   margin-left: 10px;
 `;
 
 export const DescriptionView = styled.View`
   margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+export const HourText = styled.Text`
+  font-family: MontserratAlternates-Regular;
+  font-size: ${fonts.MEDIUM}px;
+  margin-left: 10px;
+`;
+
+export const HourView = styled.View`
   margin-bottom: 10px;
 `;

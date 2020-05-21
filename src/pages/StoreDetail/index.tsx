@@ -1,6 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, Linking } from 'react-native';
+import {
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  View,
+  Text,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRoute } from '@react-navigation/native';
+import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
   ContainerD,
@@ -14,14 +25,77 @@ import {
   BodyTitle,
   Description,
   SingleProduct,
-  ProductName,
+  ProductText,
   DescriptionView,
+  HourText,
+  HourView,
 } from './styles';
 
+interface StoreProps {
+  id: string;
+  banner: string;
+  name: string;
+  city: string;
+  contact_number: string;
+  description: string;
+  open_at: string;
+  close_at: string;
+  localization: object;
+  products: Array<any>;
+}
+
 const StoreDetail: React.FC = () => {
+  const route = useRoute();
+  const { user } = useAuth();
+  const [storeInfo, setStoreInfo] = useState({} as StoreProps);
+
+  const getStoreData = useCallback(async () => {
+    try {
+      const response = await api.get(`stores/${route.params?.storeId}`);
+      setStoreInfo(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [route.params]);
+
+  useEffect(() => {
+    getStoreData();
+  }, [getStoreData]);
+
+  const isLogged = useCallback(async () => {
+    if (user === undefined) {
+      return false;
+    }
+    return true;
+  }, []);
+
   const handleWhatsAppMessage = useCallback(async () => {
-    await Linking.openURL(`https://wa.me/5561981796897`).catch(err =>
-      console.log(err),
+    await Linking.openURL(
+      `https://wa.me/55${storeInfo.contact_number}`,
+    ).catch(err => console.log(err));
+  }, []);
+
+  const teste = useCallback(async () => {
+    const scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+    const url = `${scheme}${storeInfo.localization?.latitude},${storeInfo.localization?.longitude}`;
+    console.log(storeInfo.localization.latitude);
+    Linking.openURL(url);
+  }, []);
+
+  const loggedButtons = useCallback(() => {
+    return (
+      <IconsRow>
+        <TouchableOpacity onPress={handleWhatsAppMessage}>
+          <IconsCircle>
+            <Icon name="whatsapp" size={20} color="#fff" />
+          </IconsCircle>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={teste}>
+          <IconsCircle>
+            <Icon name="routes" size={20} color="#fff" />
+          </IconsCircle>
+        </TouchableOpacity>
+      </IconsRow>
     );
   }, []);
 
@@ -29,39 +103,48 @@ const StoreDetail: React.FC = () => {
     <Container>
       <CustomImage
         source={{
-          uri:
-            'https://lh3.googleusercontent.com/proxy/1dLY00Aw46RsGVuAFTEcwVCO9Y4T3HoTiPPVLFy-MefC8HMuWLewr2DRtSTAOTACONgSThaFj0i8rOj_AvtToVVZjw',
+          uri: `http://localhost:3333/files/${storeInfo.banner}`,
         }}
       />
       <ContainerD>
-        <Title>Fazenda Cenourão</Title>
         <HeaderRow>
-          <Subtitle>Brazlandia</Subtitle>
-          <IconsRow>
-            <TouchableOpacity onPress={handleWhatsAppMessage}>
-              <IconsCircle>
-                <Icon name="whatsapp" size={20} color="#fff" />
-              </IconsCircle>
-            </TouchableOpacity>
-            <IconsCircle>
-              <Icon name="routes" size={20} color="#fff" />
-            </IconsCircle>
-          </IconsRow>
+          <Title>{storeInfo.name}</Title>
+          <HourView>
+            <HourText>Horário</HourText>
+            <HourText>
+              {storeInfo.open_at}
+-{storeInfo.close_at}
+            </HourText>
+          </HourView>
+        </HeaderRow>
+        <HeaderRow>
+          <Subtitle>{storeInfo.city}</Subtitle>
+          {isLogged ? loggedButtons() : <View />}
         </HeaderRow>
         <Divider />
         <ScrollView>
           <DescriptionView>
             <BodyTitle>Descrição :</BodyTitle>
-            <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Description>
+            <Description>{storeInfo.description}</Description>
           </DescriptionView>
           <DescriptionView>
             <BodyTitle>Produtos :</BodyTitle>
-            <SingleProduct>
-              <ProductName>- Alface</ProductName>
-              <ProductName>$10</ProductName>
-            </SingleProduct>
+            {storeInfo.products ? (
+              storeInfo.products.map((item: any) => (
+                <SingleProduct>
+                  <ProductText>
+                    -
+{item.name}
+                  </ProductText>
+                  <ProductText>
+                    $
+{item.price}
+                  </ProductText>
+                </SingleProduct>
+              ))
+            ) : (
+              <Text>Produtos não encontrados</Text>
+            )}
           </DescriptionView>
         </ScrollView>
       </ContainerD>

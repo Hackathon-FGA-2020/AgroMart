@@ -15,11 +15,13 @@ const StoreCard: React.FC<StoreCardProps> = ({ id, bannerUrl, name, city }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('StoreDetail')}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('StoreDetail', { storeId: id })}
+    >
       <Card>
         <PictureCard
-          source={{ uri: `http://10.0.2.2:3333/files/${bannerUrl}` }}
-          // source={{ uri: `http://localhost:3333/files/${bannerUrl}` }}
+          // source={{ uri: `http://10.0.2.2:3333/files/${bannerUrl}` }}
+          source={{ uri: `http://localhost:3333/files/${bannerUrl}` }}
         />
         <TitleCard>{name}</TitleCard>
         <LocationCard>{city}</LocationCard>
