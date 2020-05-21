@@ -6,9 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
 import StoreCard from '../../components/StoreCard';
-import Input from '../../components/Input';
 
-import { Container, CardCity, CityText, CardMask, CityImage } from './styles';
+import {
+  Container,
+  CardCity,
+  CityText,
+  CardMask,
+  CityImage,
+  Input,
+} from './styles';
 
 interface Store {
   id: string;
@@ -42,7 +48,6 @@ const Search: React.FC = () => {
         autoCorrect={false}
         value={search}
         onChangeText={setSearch}
-        icon={<MaterialIcons name="search" color="#9f9f9f" size={20} />}
       />
       {search ? (
         <ScrollView style={{ flex: 1, marginTop: '4%' }}>
