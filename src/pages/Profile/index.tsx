@@ -21,7 +21,7 @@ interface User {
 }
 
 const Profile: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [hasStore, setHasStore] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
 
@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
     return (
       <BodyView>
         <BodyText>Você ainda não possui uma loja ! </BodyText>
-        <Button onPress={signOut}>Cadastrar loja</Button>
+        <Button>Cadastrar loja</Button>
       </BodyView>
     );
   }, []);

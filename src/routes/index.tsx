@@ -7,6 +7,7 @@ import StoreDetail from '../pages/StoreDetail';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Profile from '../pages/Profile';
+import CitySearchResult from '../pages/CitySearchResult';
 
 import { useAuth } from '../hooks/auth';
 
@@ -36,6 +37,7 @@ const Routes: React.FC = () => {
       )}
 
       <App.Screen name="StoreDetail" component={StoreDetail} />
+      <App.Screen name="CitySearchResult" component={CitySearchResult} />
     </App.Navigator>
   );
 };
