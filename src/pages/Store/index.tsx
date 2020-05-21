@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker, { ImagePickerOptions } from 'react-native-image-picker';
 
 import Styles, {
   Container,
@@ -20,7 +20,7 @@ const Store: React.FC = () => {
   const [city, setCity] = useState('');
   const [picture, setPicture] = useState(null);
 
-  const optionsImagePicker = {
+  const optionsImagePicker: ImagePickerOptions = {
     title: 'Selecionae uma foto',
     cancelButtonTitle: 'Cancelar',
     takePhotoButtonTitle: 'Tirar uma foto',
@@ -48,14 +48,15 @@ const Store: React.FC = () => {
         type: response.type,
         name: fileName,
         data: response.data,
+        path: response.path,
       });
     });
   }, [picture, optionsImagePicker]);
 
   return (
     <Container>
-      <ButtonPicture<any> onPress={takePicture} image={picture}>
-        <PictureStore />
+      <ButtonPicture<any> onPress={takePicture}>
+        <PictureStore image={picture} />
       </ButtonPicture>
       <ContainerForm>
         <Input

@@ -3,9 +3,16 @@ import { metrics, fonts } from '../../styles';
 
 export const Container = styled.View`
   flex: 1;
-  margin-top: -10%;
-  padding: ${metrics.PADDING_SCREEN * 1.5}px;
-  align-items: center;
+  padding: 2%;
+`;
+
+export const Input = styled.TextInput`
+  padding: 0 15px;
+  height: 45px;
+  border-radius: 10px;
+  border: 2px #888888;
+  margin: 30px 20px 15px;
+  font-size: 18px;
 `;
 
 export const CardsContainer = styled.View`
@@ -33,8 +40,13 @@ export const CityText = styled.Text`
 export const CardMask = styled.View`
   position: absolute;
   justify-content: center;
-  width: 160px;
-  height: 160px;
+  width: ${metrics.SCREEN_WIDTH * 0.41}px;
+  height: ${metrics.SCREEN_WIDTH * 0.41}px;
   z-index: 1;
-  background: rgba(1, 1, 1, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+`;
+
+export const CityImage = styled.Image`
+  width: ${metrics.SCREEN_WIDTH * 0.41}px;
+  height: ${metrics.SCREEN_WIDTH * 0.41}px;
 `;

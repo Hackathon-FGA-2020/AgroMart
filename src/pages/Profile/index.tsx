@@ -23,7 +23,7 @@ interface User {
 }
 
 const Profile: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [hasStore, setHasStore] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const navigation = useNavigation();

@@ -10,8 +10,8 @@ export const ContainerForm = styled.View`
 `;
 
 export const PictureStore = styled<any>(FastImage).attrs(props => ({
-  resizeMode: FastImage.resizeMode.contain,
-  source: props.image ? props.image.uri : STORE_PICTURE_DEFAULT,
+  resizeMode: FastImage.resizeMode.cover,
+  source: props.image ? { uri: props.image.uri } : STORE_PICTURE_DEFAULT,
 }))`
   height: ${metrics.PADDING_SCREEN * 10}px;
   align-self: stretch;
