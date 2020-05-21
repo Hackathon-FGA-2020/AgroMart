@@ -8,6 +8,7 @@ import { Alert } from 'react-native';
 import api from '../../services/api';
 import { data as dataCity } from '../Search';
 import Button from '../../components/Button';
+import ModalProduct from '../../components/ModalProduct';
 
 import Styles, {
   Container,
@@ -17,6 +18,10 @@ import Styles, {
   TextLabel,
   ButtonPicture,
   AnimationCircule,
+  ContainerProduct,
+  ButtonProduct,
+  ProductItem,
+  DeleteProduct,
 } from './styles';
 import Input from '../../components/Input';
 
@@ -24,6 +29,8 @@ const Store: React.FC = () => {
   const [citys, setCitys] = useState({ label: '', value: '' });
   const [picture, setPicture] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   useEffect(() => {
     const cityPicker = dataCity.map(city => {
@@ -49,6 +56,7 @@ const Store: React.FC = () => {
       description: '',
       contact: '',
       city: '',
+      products: [],
     },
     enableReinitialize: true,
     validationSchema: SCHEMA,
@@ -88,6 +96,26 @@ const Store: React.FC = () => {
     });
   }, [picture, optionsImagePicker]);
 
+  const handleModal = useCallback(() => {
+    setVisibleModal(!visibleModal);
+  }, [visibleModal]);
+
+  const addProduct = useCallback(
+    product => {
+      setProducts([...products, { name: product.name, price: product.price }]);
+      handleModal();
+    },
+    [products],
+  );
+
+  const deleteProducts = useCallback(
+    id => {
+      products.splice(id, 1);
+      setProducts([...products]);
+    },
+    [products],
+  );
+
   return (
     <Container>
       <ButtonPicture<any> onPress={takePicture}>
@@ -122,7 +150,7 @@ const Store: React.FC = () => {
             style={{ ...Styles }}
             useNativeAndroidPickerStyle={false}
             Icon={() => (
-              <MaterialIcons name="arrow-drop-down" size={30} color="#19A28F" />
+              <MaterialIcons name="arrow-drop-down" size={30} color="#00AA95" />
             )}
             onValueChange={e => formik.setFieldValue('city', e)}
             placeholder={{
@@ -132,9 +160,43 @@ const Store: React.FC = () => {
             items={citys}
           />
         </DropDownButton>
-        <Button onPress={formik.submitForm}>
-          {loading ? <AnimationCircule /> : 'Cadastrar'}
-        </Button>
+        <ContainerProduct>
+          <TextLabel>Produtos</TextLabel>
+          <ButtonProduct onPress={() => setVisibleModal(!visibleModal)}>
+            <MaterialIcons
+              name="add-circle-outline"
+              size={30}
+              color="#00AA95"
+            />
+          </ButtonProduct>
+        </ContainerProduct>
+        {products &&
+          products.map((item, index) => {
+            return (
+              <ProductItem key={index}>
+                <TextLabel style={{ flex: 1 }}>{item.name}</TextLabel>
+                <>
+                  <TextLabel>
+                    R$
+                    {item.price}
+                  </TextLabel>
+                  <DeleteProduct onPress={() => deleteProducts(index)}>
+                    <MaterialIcons
+                      name="remove-circle-outline"
+                      size={30}
+                      color="#FF0000"
+                    />
+                  </DeleteProduct>
+                </>
+              </ProductItem>
+            );
+          })}
+        <Button>{loading ? <AnimationCircule /> : 'Criar loja'}</Button>
+        <ModalProduct
+          visibleModal={visibleModal}
+          handleModal={handleModal}
+          addProduct={addProduct}
+        />
       </ContainerForm>
     </Container>
   );

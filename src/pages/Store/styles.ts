@@ -36,8 +36,25 @@ export const TextLabel = styled.Text`
   padding: 5px;
   font-family: MontserratAlternates-Regular;
 `;
-
 export const ButtonPicture = styled.TouchableOpacity``;
+
+export const ButtonProduct = styled.TouchableOpacity``;
+
+export const DeleteProduct = styled.TouchableOpacity``;
+
+export const ContainerProduct = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+`;
+
+export const ProductItem = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
 
 export default StyleSheet.create({
   inputAndroid: {
