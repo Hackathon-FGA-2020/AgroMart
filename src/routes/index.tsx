@@ -7,6 +7,7 @@ import StoreDetail from '../pages/StoreDetail';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Profile from '../pages/Profile';
+import Store from '../pages/Store';
 
 import { useAuth } from '../hooks/auth';
 
@@ -27,6 +28,7 @@ const Routes: React.FC = () => {
       {user ? (
         <>
           <App.Screen name="Profile" component={Profile} />
+          <App.Screen name="Store" component={Store} />
         </>
       ) : (
         <>

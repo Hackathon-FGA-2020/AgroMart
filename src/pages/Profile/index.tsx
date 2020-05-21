@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+
 import {
   Container,
   Title,
@@ -24,6 +26,7 @@ const Profile: React.FC = () => {
   const { user, signOut } = useAuth();
   const [hasStore, setHasStore] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
+  const navigation = useNavigation();
 
   const changeUserHasStore = useCallback(async () => {
     try {
@@ -46,7 +49,9 @@ const Profile: React.FC = () => {
     return (
       <BodyView>
         <BodyText>Você ainda não possui uma loja ! </BodyText>
-        <Button onPress={signOut}>Cadastrar loja</Button>
+        <Button onPress={() => navigation.navigate('Store')}>
+          Cadastrar loja
+        </Button>
       </BodyView>
     );
   }, []);
