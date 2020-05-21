@@ -19,6 +19,7 @@ const StoreCard: React.FC<StoreCardProps> = ({ id, bannerUrl, name, city }) => {
       <Card>
         <PictureCard
           source={{ uri: `http://10.0.2.2:3333/files/${bannerUrl}` }}
+          // source={{ uri: `http://localhost:3333/files/${bannerUrl}` }}
         />
         <TitleCard>{name}</TitleCard>
         <LocationCard>{city}</LocationCard>
