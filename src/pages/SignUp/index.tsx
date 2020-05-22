@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
   }, [passwordSecure]);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
       <ArrowBackComponent />
       <Container>
         <Logo />

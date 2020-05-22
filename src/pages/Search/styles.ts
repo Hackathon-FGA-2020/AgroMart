@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
 import { metrics, fonts } from '../../styles';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 2%;
 `;
 
 export const Input = styled.TextInput`

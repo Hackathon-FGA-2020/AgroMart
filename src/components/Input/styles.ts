@@ -21,6 +21,7 @@ export const TInput = styled.TextInput.attrs({
   flex: 1;
   font-size: 15px;
   color: black;
+  margin-left: 5px;
 `;
 
 export const TextErrorInput = styled.Text`

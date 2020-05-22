@@ -107,7 +107,10 @@ const Map: React.FC = () => {
               anchor={{ x: 0, y: 0 }}
             >
               <StoreBanner
-                source={{ uri: `http://localhost:3333/files/${store.banner}` }}
+                source={{
+                  uri: `https://corpus.serveo.net/${store.banner}`,
+                  // uri: `http://localhost:3333/files/${store.banner}`
+                }}
               />
 
               <Callout

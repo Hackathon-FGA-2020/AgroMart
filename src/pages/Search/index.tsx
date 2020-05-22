@@ -70,6 +70,9 @@ const Search: React.FC = () => {
       ) : (
         <>
           <FlatList
+            contentContainerStyle={{
+              alignItems: 'center',
+            }}
             data={data}
             renderItem={({ item }) => (
               <CardCity

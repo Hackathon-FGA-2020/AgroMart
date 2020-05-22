@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker, { ImagePickerOptions } from 'react-native-image-picker';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Alert, View } from 'react-native';
+import { Alert, View, SafeAreaView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
@@ -203,174 +203,181 @@ const Store: React.FC = () => {
   };
 
   return (
-    <Container>
+    <SafeAreaView>
       <ArrowBackComponent />
-      <ButtonPicture<any> onPress={takePicture}>
-        <PictureStore image={picture} />
-      </ButtonPicture>
-      <ContainerForm>
-        <Input
-          label="Nome"
-          placeholder="Nome"
-          autoCorrect={false}
-          value={formik.values.name}
-          onChangeText={formik.handleChange('name')}
-        />
-        <Input
-          label="Descrição"
-          placeholder="Descrição"
-          autoCorrect={false}
-          value={formik.values.description}
-          onChangeText={formik.handleChange('description')}
-        />
-        <Input
-          label="Contato"
-          placeholder="Contato"
-          autoCorrect={false}
-          keyboardType="number-pad"
-          value={formik.values.contact_number}
-          onChangeText={formik.handleChange('contact_number')}
-        />
 
-        <TextLabel>Cidade</TextLabel>
-        <DropDownButton>
-          <RNPickerSelect
-            style={{ ...Styles }}
-            useNativeAndroidPickerStyle={false}
-            Icon={() => (
-              <MaterialIcons name="arrow-drop-down" size={30} color="#00AA95" />
-            )}
-            onValueChange={e => formik.setFieldValue('city', e)}
-            placeholder={{
-              label: 'Selecione uma cidade',
-              value: null,
-            }}
-            items={citys}
+      <Container>
+        <ButtonPicture<any> onPress={takePicture}>
+          <PictureStore image={picture} />
+        </ButtonPicture>
+        <ContainerForm>
+          <Input
+            label="Nome"
+            placeholder="Nome"
+            autoCorrect={false}
+            value={formik.values.name}
+            onChangeText={formik.handleChange('name')}
           />
-        </DropDownButton>
-        {markerLocation && (
-          <View>
-            <MapView
-              style={{ height: 200, width: '100%', marginTop: 25 }}
-              region={{
-                latitude: markerLocation.latitude,
-                longitude: markerLocation.longitude,
-                latitudeDelta: 0.005,
-                longitudeDelta: 0.005,
+          <Input
+            label="Descrição"
+            placeholder="Descrição"
+            autoCorrect={false}
+            value={formik.values.description}
+            onChangeText={formik.handleChange('description')}
+          />
+          <Input
+            label="Contato"
+            placeholder="Contato"
+            autoCorrect={false}
+            keyboardType="number-pad"
+            value={formik.values.contact_number}
+            onChangeText={formik.handleChange('contact_number')}
+          />
+
+          <TextLabel>Cidade</TextLabel>
+          <DropDownButton>
+            <RNPickerSelect
+              style={{ ...Styles }}
+              useNativeAndroidPickerStyle={false}
+              Icon={() => (
+                <MaterialIcons
+                  name="arrow-drop-down"
+                  size={30}
+                  color="#00AA95"
+                />
+              )}
+              onValueChange={e => formik.setFieldValue('city', e)}
+              placeholder={{
+                label: 'Selecione uma cidade',
+                value: null,
               }}
-              loadingEnabled
-              zoomEnabled={false}
-              zoomTapEnabled={false}
-              zoomControlEnabled={false}
-              rotateEnabled={false}
-              scrollEnabled={false}
-            >
-              <Marker
-                coordinate={{
+              items={citys}
+            />
+          </DropDownButton>
+          {markerLocation && (
+            <View>
+              <MapView
+                style={{ height: 200, width: '100%', marginTop: 25 }}
+                region={{
                   latitude: markerLocation.latitude,
                   longitude: markerLocation.longitude,
+                  latitudeDelta: 0.005,
+                  longitudeDelta: 0.005,
                 }}
-                anchor={{ x: 0, y: 0 }}
-              />
-            </MapView>
-          </View>
-        )}
-        <ButtonLocation onPress={handleModalMapView}>
-          <TextButtonLocation>
-            {markerLocation ? 'Editar ' : 'Inserir '}
-            localização da loja
-          </TextButtonLocation>
-        </ButtonLocation>
+                loadingEnabled
+                zoomEnabled={false}
+                zoomTapEnabled={false}
+                zoomControlEnabled={false}
+                rotateEnabled={false}
+                scrollEnabled={false}
+              >
+                <Marker
+                  coordinate={{
+                    latitude: markerLocation.latitude,
+                    longitude: markerLocation.longitude,
+                  }}
+                  anchor={{ x: 0, y: 0 }}
+                />
+              </MapView>
+            </View>
+          )}
+          <ButtonLocation onPress={handleModalMapView}>
+            <TextButtonLocation>
+              {markerLocation ? 'Editar ' : 'Inserir '}
+              localização da loja
+            </TextButtonLocation>
+          </ButtonLocation>
 
-        <TextLabel>Horário de abertura</TextLabel>
-        <ButtonStoreTime
-          onPress={() => setShowTimePickerOpen(!showTimePickerOpen)}
-        >
-          <TextStoreTime>
-            {timeOpen || 'Inserir horário de abertura'}
-          </TextStoreTime>
-        </ButtonStoreTime>
+          <TextLabel>Horário de abertura</TextLabel>
+          <ButtonStoreTime
+            onPress={() => setShowTimePickerOpen(!showTimePickerOpen)}
+          >
+            <TextStoreTime>
+              {timeOpen || 'Inserir horário de abertura'}
+            </TextStoreTime>
+          </ButtonStoreTime>
 
-        <TextLabel>Horário de fechamento</TextLabel>
-        <ButtonStoreTime
-          onPress={() => setShowTimePickerClose(!showTimePickerClose)}
-        >
-          <TextStoreTime>
-            {timeClose || 'Inserir horário de fechamento'}
-          </TextStoreTime>
-        </ButtonStoreTime>
+          <TextLabel>Horário de fechamento</TextLabel>
+          <ButtonStoreTime
+            onPress={() => setShowTimePickerClose(!showTimePickerClose)}
+          >
+            <TextStoreTime>
+              {timeClose || 'Inserir horário de fechamento'}
+            </TextStoreTime>
+          </ButtonStoreTime>
 
-        {showTimePickerOpen && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            mode="time"
-            is24Hour
-            display="default"
-            onChange={onChangeOpen}
-            value={new Date()}
-          />
-        )}
-
-        {showTimePickerClose && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            mode="time"
-            is24Hour
-            display="default"
-            onChange={onChangeClose}
-            value={new Date()}
-          />
-        )}
-
-        <ContainerProduct>
-          <TextLabel>Produtos</TextLabel>
-          <ButtonProduct onPress={() => setVisibleModal(!visibleModal)}>
-            <MaterialIcons
-              name="add-circle-outline"
-              size={30}
-              color="#00AA95"
+          {showTimePickerOpen && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              timeZoneOffsetInMinutes={0}
+              mode="time"
+              is24Hour
+              display="default"
+              onChange={onChangeOpen}
+              value={new Date()}
             />
-          </ButtonProduct>
-        </ContainerProduct>
-        {products &&
-          products.map((item, index) => {
-            return (
-              <ProductItem key={index}>
-                <TextLabel style={{ flex: 1 }}>{item.name}</TextLabel>
-                <>
-                  <TextLabel>
-                    R$
-                    {item.price}
-                  </TextLabel>
-                  <DeleteProduct onPress={() => deleteProducts(index)}>
-                    <MaterialIcons
-                      name="remove-circle-outline"
-                      size={30}
-                      color="#FF0000"
-                    />
-                  </DeleteProduct>
-                </>
-              </ProductItem>
-            );
-          })}
+          )}
 
-        <Button onPress={formik.submitForm}>
-          {loading ? <AnimationCircule /> : 'Criar loja'}
-        </Button>
-        <ModalProduct
-          visibleModal={visibleModal}
-          handleModal={handleModal}
-          addProduct={addProduct}
-        />
-        <ModalMapView
-          visibleModalMapView={visibleModalMapView}
-          handleModalMapView={handleModalMapView}
-          setMarkerLocationStore={setMarkerLocation}
-        />
-      </ContainerForm>
-    </Container>
+          {showTimePickerClose && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              timeZoneOffsetInMinutes={0}
+              mode="time"
+              is24Hour
+              display="default"
+              onChange={onChangeClose}
+              value={new Date()}
+            />
+          )}
+
+          <ContainerProduct>
+            <TextLabel>Produtos</TextLabel>
+            <ButtonProduct onPress={() => setVisibleModal(!visibleModal)}>
+              <MaterialIcons
+                name="add-circle-outline"
+                size={30}
+                color="#00AA95"
+              />
+            </ButtonProduct>
+          </ContainerProduct>
+          {products &&
+            products.map((item, index) => {
+              return (
+                <ProductItem key={index}>
+                  <TextLabel style={{ flex: 1 }}>{item.name}</TextLabel>
+                  <>
+                    <TextLabel>
+                      R$
+                      {item.price}
+                    </TextLabel>
+                    <DeleteProduct onPress={() => deleteProducts(index)}>
+                      <MaterialIcons
+                        name="remove-circle-outline"
+                        size={30}
+                        color="#FF0000"
+                      />
+                    </DeleteProduct>
+                  </>
+                </ProductItem>
+              );
+            })}
+
+          <Button onPress={formik.submitForm}>
+            {loading ? <AnimationCircule /> : 'Criar loja'}
+          </Button>
+          <ModalProduct
+            visibleModal={visibleModal}
+            handleModal={handleModal}
+            addProduct={addProduct}
+          />
+          <ModalMapView
+            visibleModalMapView={visibleModalMapView}
+            handleModalMapView={handleModalMapView}
+            setMarkerLocationStore={setMarkerLocation}
+          />
+        </ContainerForm>
+      </Container>
+    </SafeAreaView>
   );
 };
 

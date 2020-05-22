@@ -3,7 +3,7 @@ import FastImage from 'react-native-fast-image';
 import { metrics, fonts } from '../../styles';
 import { PROFISSAO } from '../../assets/images';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
