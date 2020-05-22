@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 import { useAuth } from '../../hooks/auth';
+
 import api from '../../services/api';
 
 import {
@@ -11,6 +13,8 @@ import {
   BodyView,
   PictureProfile,
   ButtonsContainer,
+  SignOutButton,
+  SignOutText,
 } from './styles';
 import Button from '../../components/Button';
 import DeleteButton from '../../components/DeleteButton';
@@ -22,28 +26,34 @@ interface User {
   id: string;
 }
 
+interface Store {
+  owner_id: string;
+}
+
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [hasStore, setHasStore] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const navigation = useNavigation();
 
-  const changeUserHasStore = useCallback(async () => {
-    try {
-      await api.get(`stores/${userInfo?.id}`);
-      setHasStore(true);
-    } catch (error) {
-      setHasStore(false);
-    }
-  }, []);
+  useFocusEffect(
+    useCallback(async (): any => {
+      try {
+        const response = await api.get(`stores`);
+        response.data.forEach((item: Store) => {
+          if (item.owner_id === user?.id) {
+            setHasStore(true);
+          }
+        });
+      } catch (error) {
+        setHasStore(false);
+      }
+    }, []),
+  );
 
   useEffect(() => {
     setUserInfo(user as User);
   }, [user]);
-
-  useEffect(() => {
-    changeUserHasStore();
-  }, [changeUserHasStore]);
 
   const userDosentHasStore = useCallback(() => {
     return (
@@ -54,16 +64,18 @@ const Profile: React.FC = () => {
         </Button>
       </BodyView>
     );
-  }, []);
+  }, [navigation]);
 
   const userHasStore = useCallback(() => {
     return (
       <ButtonsContainer>
-        <Button>Editar Loja</Button>
+        <Button onPress={() => navigation.navigate('Store')}>
+          Editar Loja
+        </Button>
         <DeleteButton>Excluir loja</DeleteButton>
       </ButtonsContainer>
     );
-  }, []);
+  }, [navigation]);
 
   return (
     <Container>
@@ -77,7 +89,11 @@ const Profile: React.FC = () => {
           <Input label="Email" value={userInfo.email} editable={false} />
         </>
       ) : null}
-      {hasStore ? userHasStore() : userDosentHasStore()}
+      {!hasStore ? userDosentHasStore() : userHasStore()}
+      <SignOutButton onPress={() => signOut()}>
+        <Feather name="log-out" size={20} color="#f24245" />
+        <SignOutText>Finalizar Sessão</SignOutText>
+      </SignOutButton>
     </Container>
   );
 };

@@ -38,3 +38,17 @@ export const PictureProfile = styled(FastImage).attrs({
 export const ButtonsContainer = styled.View`
   margin-top: 30px;
 `;
+
+export const SignOutButton = styled.TouchableOpacity`
+  padding: 25px 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const SignOutText = styled.Text`
+  color: #f24245;
+  font-size: 18px;
+  font-family: MontserratAlternates-Regular;
+  margin-left: 8px;
+`;

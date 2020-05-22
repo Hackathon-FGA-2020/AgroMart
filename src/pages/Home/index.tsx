@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, EffectCallback } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import api from '../../services/api';
 
@@ -41,14 +41,12 @@ const Home: React.FC = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function getStores(): Promise<void> {
+  useFocusEffect(
+    useCallback(async (): any => {
       const response = await api.get('/stores');
       setStores(response.data);
-    }
-
-    getStores();
-  }, []);
+    }, []),
+  );
 
   return (
     <Container>

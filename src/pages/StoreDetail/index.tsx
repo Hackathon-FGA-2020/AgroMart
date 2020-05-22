@@ -85,8 +85,8 @@ const StoreDetail: React.FC = () => {
     <Container>
       <CustomImage
         source={{
-          uri: `http://10.0.2.2:3333/files/${storeInfo.banner}`,
-          // uri: `http://localhost:3333/files/${storeInfo.banner}`,
+          // uri: `http://10.0.2.2:3333/files/${storeInfo.banner}`,
+          uri: `http://localhost:3333/files/${storeInfo.banner}`,
         }}
       />
       <Content>

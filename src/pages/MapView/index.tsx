@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import api from '../../services/api';
 
@@ -40,15 +40,13 @@ const Map: React.FC = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function getStores(): Promise<void> {
+  useFocusEffect(
+    useCallback(async (): any => {
       const response = await api.get('/stores');
 
       setStores(response.data);
-    }
-
-    getStores();
-  }, []);
+    }, []),
+  );
 
   const [region, setRegion] = useState({
     latitude: -15.790649,
@@ -109,7 +107,7 @@ const Map: React.FC = () => {
               anchor={{ x: 0, y: 0 }}
             >
               <StoreBanner
-                source={{ uri: `http://10.0.2.2:3333/files/${store.banner}` }}
+                source={{ uri: `http://localhost:3333/files/${store.banner}` }}
               />
 
               <Callout
