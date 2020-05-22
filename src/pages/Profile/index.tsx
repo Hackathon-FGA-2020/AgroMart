@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { useAuth } from '../../hooks/auth';
@@ -37,6 +37,16 @@ const Profile: React.FC = () => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const navigation = useNavigation();
 
+  const handleDeleteStore = useCallback(async (): Promise<void> => {
+    try {
+      await api.delete(`stores/${user?.id}`);
+      Alert.alert('Loja excluida!', 'Sua loja foi excluida com sucesso');
+      setHasStore(false);
+    } catch {
+      Alert.alert('Erro!', 'Erro ao excluir loja');
+    }
+  }, []);
+
   useFocusEffect(
     useCallback(async (): any => {
       try {
@@ -49,12 +59,12 @@ const Profile: React.FC = () => {
       } catch (error) {
         setHasStore(false);
       }
-    }, []),
+    }, [user]),
   );
 
   useEffect(() => {
     setUserInfo(user as User);
-  }, [user]);
+  }, [user, handleDeleteStore]);
 
   const userDosentHasStore = useCallback(() => {
     return (
@@ -73,7 +83,9 @@ const Profile: React.FC = () => {
         <Button onPress={() => navigation.navigate('Store')}>
           Editar Loja
         </Button>
-        <DeleteButton>Excluir loja</DeleteButton>
+        <DeleteButton onPress={() => handleDeleteStore()}>
+          Excluir loja
+        </DeleteButton>
       </ButtonsContainer>
     );
   }, [navigation]);
