@@ -69,7 +69,7 @@ Como o hackaton possui um curto periodo de tempo para o desenvolvimento, não fo
 - Chat proprio do aplicativo.
 - Edição de perfil.
 - Recuperação de senha.
-- Melhorar inputs com mascaras.
+- Mascaras em inputs.
 
 ---
 
