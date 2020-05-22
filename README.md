@@ -7,8 +7,6 @@ Tema: Agricultura e Alimentação
 
 ---
 
-## Descrição:
-
 Como descrito no [enunciado do desafio](https://github.com/Hackathon-FGA-2020/Sobre-o-Hackathon/blob/master/docs/Desafios/Desafio_3/Hackathon_FGA_2020_Desafio_3.pdf), devido ao isolamento social provocado pelo avanço da COVID-19 no Brasil, pequenos agricultores passam por dificuldades para vender e expor seus produtos que antes eram vendidos em feiras, para hotéis, restaurantes e outros clientes. Assim com as necessidades dos agricultores o projeto AgroMart se iniciou para ajudá-los a se conectar com os consumidores por meio de um aplicativo de celular, facilitando a comunicação e divulgação de seus produtos.
 
 A ideia surgiu a partir de uma [reportagem transmitida no globo rural](https://g1.globo.com/economia/agronegocios/globo-rural/noticia/2020/05/03/produtora-de-goias-cria-barraca-da-honestidade-para-melhorar-as-vendas-de-hortalicas-e-verduras.ghtml), onde Eleuza Fernandes, uma pequena agricultora do Goiás, montou uma barraca em que toda negociação é feita na base da confiança, onde o consumidor ao chegar recolhe o produto desejado e deixa o pagamento no local evitando desperdícios e proporcionando uma experiência compatível ao momento atual devido ao COVID-19, que trás beneficios tanto para o agricultor quanto para o consumidor.
