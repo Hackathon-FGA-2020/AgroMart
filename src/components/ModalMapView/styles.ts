@@ -8,12 +8,13 @@ import { metrics, fonts } from '../../styles';
 
 export const Container = styled.View`
   align-self: stretch;
+  height: 90%;
   background-color: white;
   border-radius: ${metrics.PADDING_SCREEN / 2}px;
   align-items: center;
-  padding: ${metrics.PADDING_SCREEN * 1.5}px;
-  margin-right: ${metrics.PADDING_SCREEN * 1.5}px;
-  margin-left: ${metrics.PADDING_SCREEN * 1.5}px;
+  justify-content: center;
+  margin-right: ${metrics.PADDING_SCREEN * 1}px;
+  margin-left: ${metrics.PADDING_SCREEN * 1}px;
 `;
 
 export const Modal = styled(RNModal)`
@@ -23,12 +24,41 @@ export const Modal = styled(RNModal)`
 `;
 
 export const TitleModal = styled.Text`
-  text-align: left;
-  align-self: stretch;
+  text-align: center;
   color: black;
   font-size: ${fonts.EXTRA_MEDIUM}px;
-  font-weight: 400;
-  font-family: MontserratAlternates-Regular;
+  font-weight: bold;
+`;
+
+export const SubTitleModal = styled.Text`
+  text-align: center;
+  color: black;
+  font-size: ${fonts.MEDIUM}px;
+  margin-top: ${metrics.PADDING_SCREEN * 0.5}px;
+  margin-bottom: ${metrics.PADDING_SCREEN * 0.5}px;
+`;
+
+export const TextPatient = styled.Text`
+  font-size: ${fonts.MEDIUM}px;
+  color: #3b3b3b;
+  font-family: Helvetica;
+  font-weight: bold;
+`;
+
+export const TextNamePatient = styled.Text`
+  font-size: ${fonts.MEDIUM}px;
+  color: #7b7b7b;
+  font-family: Helvetica;
+`;
+
+export const TextAddress = styled.Text`
+  font-size: ${fonts.MEDIUM}px;
+  color: #182047;
+  text-decoration-line: underline;
+  font-family: Helvetica;
+  text-align: center;
+  margin-top: ${metrics.PADDING_SCREEN * 0.5}px;
+  margin-bottom: ${metrics.PADDING_SCREEN}px;
 `;
 
 export const ContainerClose = styled.View`
@@ -86,5 +116,22 @@ export const ButtonText = styled.Text`
   color: #ffffff;
   font-size: ${fonts.EXTRA_MEDIUM}px;
   font-weight: bold;
-  font-family: MontserratAlternates-Regular;
+`;
+
+export const ButtonConfirm = styled.TouchableOpacity`
+  height: 40px;
+  width: 70%;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: #00aa95;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 60px;
+`;
+
+export const ButtonTextConfirm = styled.Text`
+  color: #ffffff;
+  font-size: ${fonts.EXTRA_MEDIUM}px;
+  font-weight: bold;
 `;

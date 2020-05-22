@@ -42,6 +42,22 @@ export const ButtonProduct = styled.TouchableOpacity``;
 
 export const DeleteProduct = styled.TouchableOpacity``;
 
+export const ButtonLocation = styled.TouchableOpacity`
+  height: 50px;
+  align-self: stretch;
+  border: dashed 1px #787777;
+  border-radius: 10px;
+  background-color: #a0a0a0;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+`;
+
+export const TextButtonLocation = styled.Text`
+  font-size: 17px;
+  font-family: MontserratAlternates-Regular;
+`;
+
 export const ContainerProduct = styled.View`
   flex-direction: row;
   align-items: center;

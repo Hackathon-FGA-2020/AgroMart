@@ -10,6 +10,7 @@ import {
   LinearGradientButton,
   ButtonText,
   ButtonProduct,
+  TitleModal,
 } from './styles';
 
 function ModalProduct({ visibleModal, handleModal, addProduct }) {
@@ -46,6 +47,7 @@ function ModalProduct({ visibleModal, handleModal, addProduct }) {
       </ContainerClose>
 
       <Container>
+        <TitleModal>Novo produto</TitleModal>
         <Input
           placeholder="Produto"
           autoCorrect={false}

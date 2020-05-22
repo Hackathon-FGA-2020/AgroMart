@@ -4,11 +4,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker, { ImagePickerOptions } from 'react-native-image-picker';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { format } from 'date-fns';
 import api from '../../services/api';
 import { data as dataCity } from '../Search';
 import Button from '../../components/Button';
 import ModalProduct from '../../components/ModalProduct';
+import ModalMapView from '../../components/ModalMapView';
 
 import Styles, {
   Container,
@@ -22,6 +26,8 @@ import Styles, {
   ButtonProduct,
   ProductItem,
   DeleteProduct,
+  ButtonLocation,
+  TextButtonLocation,
 } from './styles';
 import Input from '../../components/Input';
 
@@ -31,6 +37,13 @@ const Store: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalMapView, setVisibleModalMapView] = useState(false);
+  const [markerLocation, setMarkerLocation] = useState(null);
+  const [showTimePickerOpen, setShowTimePickerOpen] = useState(false);
+  const [showTimePickerClose, setShowTimePickerClose] = useState(false);
+
+  const [timeOpen, setTimeOpen] = useState('');
+  const [timeClose, setTimeClose] = useState('');
 
   useEffect(() => {
     const cityPicker = dataCity.map(city => {
@@ -48,15 +61,18 @@ const Store: React.FC = () => {
     description: Yup.string().required(),
     contact: Yup.string().required(),
     city: Yup.string().required(),
+    location: Yup.string().required(),
   });
 
   const formik = useFormik({
     initialValues: {
+      banner: '',
       name: '',
       description: '',
       contact: '',
       city: '',
       products: [],
+      location: {},
     },
     enableReinitialize: true,
     validationSchema: SCHEMA,
@@ -91,7 +107,6 @@ const Store: React.FC = () => {
         type: response.type,
         name: fileName,
         data: response.data,
-        path: response.path,
       });
     });
   }, [picture, optionsImagePicker]);
@@ -99,6 +114,10 @@ const Store: React.FC = () => {
   const handleModal = useCallback(() => {
     setVisibleModal(!visibleModal);
   }, [visibleModal]);
+
+  const handleModalMapView = useCallback(() => {
+    setVisibleModalMapView(!visibleModalMapView);
+  }, [visibleModalMapView]);
 
   const addProduct = useCallback(
     product => {
@@ -115,6 +134,20 @@ const Store: React.FC = () => {
     },
     [products],
   );
+
+  const onChangeOpen = (event, selectedDate) => {
+    const time = format(selectedDate, 'hh:mm');
+    console.log(time);
+    setShowTimePickerOpen(!showTimePickerOpen);
+    setTimeOpen(time);
+  };
+
+  const onChangeClose = (event, selectedDate) => {
+    const time = format(selectedDate, 'hh:mm');
+    console.log(time);
+    setShowTimePickerClose(!showTimePickerClose);
+    setTimeClose(time);
+  };
 
   return (
     <Container>
@@ -160,6 +193,40 @@ const Store: React.FC = () => {
             items={citys}
           />
         </DropDownButton>
+        {markerLocation && (
+          <View>
+            <MapView
+              style={{ height: 200, width: '100%', marginTop: 25 }}
+              region={{
+                latitude: markerLocation.latitude,
+                longitude: markerLocation.longitude,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
+              }}
+              loadingEnabled
+              zoomEnabled={false}
+              zoomTapEnabled={false}
+              zoomControlEnabled={false}
+              rotateEnabled={false}
+              scrollEnabled={false}
+            >
+              <Marker
+                coordinate={{
+                  latitude: markerLocation.latitude,
+                  longitude: markerLocation.longitude,
+                }}
+                anchor={{ x: 0, y: 0 }}
+              />
+            </MapView>
+          </View>
+        )}
+
+        <ButtonLocation onPress={handleModalMapView}>
+          <TextButtonLocation>
+            {markerLocation ? 'Editar ' : 'Inserir '}
+            localização da loja
+          </TextButtonLocation>
+        </ButtonLocation>
         <ContainerProduct>
           <TextLabel>Produtos</TextLabel>
           <ButtonProduct onPress={() => setVisibleModal(!visibleModal)}>
@@ -191,11 +258,49 @@ const Store: React.FC = () => {
               </ProductItem>
             );
           })}
+
+        <Button onPress={() => setShowTimePickerOpen(!showTimePickerOpen)}>
+          Inicio
+        </Button>
+
+        <Button onPress={() => setShowTimePickerClose(!showTimePickerClose)}>
+          Fechado
+        </Button>
+
+        {showTimePickerOpen && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            mode="time"
+            is24Hour
+            display="default"
+            onChange={onChangeOpen}
+            value={new Date()}
+          />
+        )}
+
+        {showTimePickerClose && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            mode="time"
+            is24Hour
+            display="default"
+            onChange={onChangeClose}
+            value={new Date()}
+          />
+        )}
+
         <Button>{loading ? <AnimationCircule /> : 'Criar loja'}</Button>
         <ModalProduct
           visibleModal={visibleModal}
           handleModal={handleModal}
           addProduct={addProduct}
+        />
+        <ModalMapView
+          visibleModalMapView={visibleModalMapView}
+          handleModalMapView={handleModalMapView}
+          setMarkerLocationStore={setMarkerLocation}
         />
       </ContainerForm>
     </Container>
