@@ -236,3 +236,5 @@ const data = [
     urlImage: 'http://www.df.gov.br/wp-conteudo/uploads/2015/10/sudoeste.jpg',
   },
 ];
+
+export { data };

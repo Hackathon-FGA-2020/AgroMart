@@ -43,7 +43,7 @@ const AuthProvider: React.FC = ({ children }) => {
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
 
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+      api.defaults.headers.Authorization = `Bearer ${token[1]}`;
     }
 
     loadStorageData();
