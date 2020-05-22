@@ -39,10 +39,6 @@ const Recommendations: React.FC = () => {
         <Topic>
           • Condicione os alimentos em embalagens adequadas e higienizadas.
         </Topic>
-        <Topic>
-          • Preferencialmente combine horários com os compradores para evitar
-          aglomerações.
-        </Topic>
         <Topic>• Disponibilize um ambiente adequado e arejado.</Topic>
       </Container>
     </ScrollView>
