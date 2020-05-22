@@ -16,6 +16,7 @@ import { data as dataCity } from '../Search';
 import Button from '../../components/Button';
 import ModalProduct from '../../components/ModalProduct';
 import ModalMapView from '../../components/ModalMapView';
+import ArrowBackComponent from '../../components/ArrowBackComponent';
 
 import Styles, {
   Container,
@@ -61,9 +62,6 @@ const Store: React.FC = () => {
 
   const handleSubmit = useCallback(
     async data => {
-      console.log(data);
-      console.log('Products => ', products);
-
       const body = {
         ...data,
         localization: {
@@ -198,7 +196,6 @@ const Store: React.FC = () => {
   const onChangeClose = (event, selectedDate) => {
     if (selectedDate) {
       const time = format(selectedDate, 'HH:mm');
-      console.log(time);
       setShowTimePickerClose(!showTimePickerClose);
       setTimeClose(time);
       formik.setFieldValue('close_at', time);
@@ -207,6 +204,7 @@ const Store: React.FC = () => {
 
   return (
     <Container>
+      <ArrowBackComponent />
       <ButtonPicture<any> onPress={takePicture}>
         <PictureStore image={picture} />
       </ButtonPicture>
