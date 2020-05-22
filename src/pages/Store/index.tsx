@@ -8,8 +8,11 @@ import { Alert, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
+import { useNavigation } from '@react-navigation/native';
+
 import api from '../../services/api';
 import { data as dataCity } from '../Search';
+
 import Button from '../../components/Button';
 import ModalProduct from '../../components/ModalProduct';
 import ModalMapView from '../../components/ModalMapView';
@@ -47,6 +50,8 @@ const Store: React.FC = () => {
   const [timeOpen, setTimeOpen] = useState('');
   const [timeClose, setTimeClose] = useState('');
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     const cityPicker = dataCity.map(city => {
       return { label: city.city, value: city.city };
@@ -54,9 +59,36 @@ const Store: React.FC = () => {
     setCitys(cityPicker);
   }, []);
 
-  const handleSubmit = useCallback(async data => {
-    console.log(data);
-  }, []);
+  const handleSubmit = useCallback(
+    async data => {
+      console.log(data);
+      console.log('Products => ', products);
+
+      const body = {
+        ...data,
+        localization: {
+          latitude: String(markerLocation.latitude),
+          longitude: String(markerLocation.longitude),
+          address: '',
+        },
+        products,
+      };
+
+      try {
+        await api.post('/stores', body);
+
+        Alert.alert('Loja cadastrada', 'Sua loja foi criada com sucesso');
+        navigation.goBack();
+      } catch (err) {
+        console.log(err);
+        Alert.alert(
+          'Loja não cadastrada',
+          'Verifique se preencheu os campos corretamente!',
+        );
+      }
+    },
+    [markerLocation, products],
+  );
 
   const SCHEMA = Yup.object().shape({
     name: Yup.string().required(),
@@ -74,8 +106,6 @@ const Store: React.FC = () => {
       description: '',
       contact_number: '',
       city: '',
-      products: [],
-      location: {},
       open_at: '',
       close_at: '',
     },
@@ -101,6 +131,7 @@ const Store: React.FC = () => {
       if (response.didCancel || response.error) {
         return;
       }
+
       if (response.customButton) {
         setPicture(null);
         return;
@@ -114,18 +145,19 @@ const Store: React.FC = () => {
         data: response.data,
       };
 
-      const body = new FormData();
-      body.append('file', image);
+      setPicture(image);
 
-      console.log(image);
+      const body = new FormData();
+      body.append('file', {
+        uri: image.uri,
+        type: image.type,
+        name: image.name,
+      });
+
       api
         .post('/files', body)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+        .then(res => formik.setFieldValue('banner', res.data.filename))
+        .catch(err => console.log(err));
     });
   }, [picture, optionsImagePicker]);
 
