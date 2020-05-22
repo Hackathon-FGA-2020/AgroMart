@@ -55,7 +55,7 @@ const Home: React.FC = () => {
           <PictureProfile />
           <TitleProfile>
             Ola,
-            {user && ` ${user.name}`}
+            {(user && ` ${user.name}`) || ' faça login ou cadastre-se'}
           </TitleProfile>
         </HeaderProfile>
       </TouchableOpacity>

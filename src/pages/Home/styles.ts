@@ -31,7 +31,7 @@ export const PictureProfile = styled(FastImage).attrs({
 
 export const TitleProfile = styled.Text`
   color: #000;
-  font-size: ${fonts.BIG}px;
+  font-size: ${fonts.MEDIUM}px;
   margin-left: ${metrics.PADDING_SCREEN * 0.5}px;
   font-family: MontserratAlternates-Regular;
 `;
