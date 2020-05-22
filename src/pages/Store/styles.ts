@@ -24,6 +24,21 @@ export const AnimationCircule = styled.ActivityIndicator.attrs({
 })`
   align-self: center;
 `;
+export const ButtonStoreTime = styled.TouchableOpacity`
+  border: #bfc6c5;
+  border-radius: 10px;
+  align-self: stretch;
+  padding: 10px 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+export const TextStoreTime = styled.Text`
+  font-size: 15px;
+  padding: 5px;
+  font-family: MontserratAlternates-Regular;
+`;
 
 export const DropDownButton = styled.View`
   border: #bfc6c5;
@@ -50,7 +65,7 @@ export const ButtonLocation = styled.TouchableOpacity`
   background-color: #a0a0a0;
   align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  margin: 20px 0;
 `;
 
 export const TextButtonLocation = styled.Text`
@@ -62,7 +77,7 @@ export const ContainerProduct = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 export const ProductItem = styled.View`

@@ -28,6 +28,8 @@ import Styles, {
   DeleteProduct,
   ButtonLocation,
   TextButtonLocation,
+  ButtonStoreTime,
+  TextStoreTime,
 } from './styles';
 import Input from '../../components/Input';
 
@@ -59,9 +61,10 @@ const Store: React.FC = () => {
   const SCHEMA = Yup.object().shape({
     name: Yup.string().required(),
     description: Yup.string().required(),
-    contact: Yup.string().required(),
+    contact_number: Yup.string().required(),
     city: Yup.string().required(),
-    location: Yup.string().required(),
+    open_at: Yup.string().required(),
+    close_at: Yup.string().required(),
   });
 
   const formik = useFormik({
@@ -69,10 +72,12 @@ const Store: React.FC = () => {
       banner: '',
       name: '',
       description: '',
-      contact: '',
+      contact_number: '',
       city: '',
       products: [],
       location: {},
+      open_at: '',
+      close_at: '',
     },
     enableReinitialize: true,
     validationSchema: SCHEMA,
@@ -136,17 +141,23 @@ const Store: React.FC = () => {
   );
 
   const onChangeOpen = (event, selectedDate) => {
-    const time = format(selectedDate, 'hh:mm');
-    console.log(time);
-    setShowTimePickerOpen(!showTimePickerOpen);
-    setTimeOpen(time);
+    if (selectedDate) {
+      const time = format(selectedDate, 'HH:mm');
+      console.log(time);
+      setShowTimePickerOpen(!showTimePickerOpen);
+      setTimeOpen(time);
+      formik.setFieldValue('open_at', time);
+    }
   };
 
   const onChangeClose = (event, selectedDate) => {
-    const time = format(selectedDate, 'hh:mm');
-    console.log(time);
-    setShowTimePickerClose(!showTimePickerClose);
-    setTimeClose(time);
+    if (selectedDate) {
+      const time = format(selectedDate, 'HH:mm');
+      console.log(time);
+      setShowTimePickerClose(!showTimePickerClose);
+      setTimeClose(time);
+      formik.setFieldValue('close_at', time);
+    }
   };
 
   return (
@@ -173,8 +184,9 @@ const Store: React.FC = () => {
           label="Contato"
           placeholder="Contato"
           autoCorrect={false}
-          value={formik.values.contact}
-          onChangeText={formik.handleChange('contact')}
+          keyboardType="number-pad"
+          value={formik.values.contact_number}
+          onChangeText={formik.handleChange('contact_number')}
         />
 
         <TextLabel>Cidade</TextLabel>
@@ -220,13 +232,55 @@ const Store: React.FC = () => {
             </MapView>
           </View>
         )}
-
         <ButtonLocation onPress={handleModalMapView}>
           <TextButtonLocation>
             {markerLocation ? 'Editar ' : 'Inserir '}
             localização da loja
           </TextButtonLocation>
         </ButtonLocation>
+
+        <TextLabel>Horário de abertura</TextLabel>
+        <ButtonStoreTime
+          onPress={() => setShowTimePickerOpen(!showTimePickerOpen)}
+        >
+          <TextStoreTime>
+            {timeOpen || 'Inserir horário de abertura'}
+          </TextStoreTime>
+        </ButtonStoreTime>
+
+        <TextLabel>Horário de fechamento</TextLabel>
+        <ButtonStoreTime
+          onPress={() => setShowTimePickerClose(!showTimePickerClose)}
+        >
+          <TextStoreTime>
+            {timeClose || 'Inserir horário de fechamento'}
+          </TextStoreTime>
+        </ButtonStoreTime>
+
+        {showTimePickerOpen && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            mode="time"
+            is24Hour
+            display="default"
+            onChange={onChangeOpen}
+            value={new Date()}
+          />
+        )}
+
+        {showTimePickerClose && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            mode="time"
+            is24Hour
+            display="default"
+            onChange={onChangeClose}
+            value={new Date()}
+          />
+        )}
+
         <ContainerProduct>
           <TextLabel>Produtos</TextLabel>
           <ButtonProduct onPress={() => setVisibleModal(!visibleModal)}>
@@ -259,39 +313,9 @@ const Store: React.FC = () => {
             );
           })}
 
-        <Button onPress={() => setShowTimePickerOpen(!showTimePickerOpen)}>
-          Inicio
+        <Button onPress={formik.submitForm}>
+          {loading ? <AnimationCircule /> : 'Criar loja'}
         </Button>
-
-        <Button onPress={() => setShowTimePickerClose(!showTimePickerClose)}>
-          Fechado
-        </Button>
-
-        {showTimePickerOpen && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            mode="time"
-            is24Hour
-            display="default"
-            onChange={onChangeOpen}
-            value={new Date()}
-          />
-        )}
-
-        {showTimePickerClose && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            mode="time"
-            is24Hour
-            display="default"
-            onChange={onChangeClose}
-            value={new Date()}
-          />
-        )}
-
-        <Button>{loading ? <AnimationCircule /> : 'Criar loja'}</Button>
         <ModalProduct
           visibleModal={visibleModal}
           handleModal={handleModal}
