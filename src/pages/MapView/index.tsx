@@ -41,10 +41,10 @@ const Map: React.FC = () => {
   const navigation = useNavigation();
 
   useFocusEffect(
-    useCallback(async (): any => {
-      const response = await api.get('/stores');
-
-      setStores(response.data);
+    useCallback((): any => {
+      api.get('/stores').then(response => {
+        setStores(response.data);
+      });
     }, []),
   );
 

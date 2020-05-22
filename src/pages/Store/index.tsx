@@ -8,7 +8,7 @@ import { Alert, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import api from '../../services/api';
 import { data as dataCity } from '../Search';
@@ -47,10 +47,11 @@ const Store: React.FC = () => {
   const [markerLocation, setMarkerLocation] = useState(null);
   const [showTimePickerOpen, setShowTimePickerOpen] = useState(false);
   const [showTimePickerClose, setShowTimePickerClose] = useState(false);
-
   const [timeOpen, setTimeOpen] = useState('');
   const [timeClose, setTimeClose] = useState('');
 
+  const routes = useRoute();
+  const { store } = routes.params;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -71,18 +72,33 @@ const Store: React.FC = () => {
         },
         products,
       };
+      console.log(body);
+      if (store) {
+        try {
+          await api.put('/stores', body);
 
-      try {
-        await api.post('/stores', body);
+          Alert.alert('Loja editada', 'Sua loja foi editada com sucesso');
+          navigation.goBack();
+        } catch (err) {
+          console.log(err);
+          Alert.alert(
+            'Loja não editada',
+            'Verifique se preencheu os campos corretamente!',
+          );
+        }
+      } else {
+        try {
+          await api.post('/stores', body);
 
-        Alert.alert('Loja cadastrada', 'Sua loja foi criada com sucesso');
-        navigation.goBack();
-      } catch (err) {
-        console.log(err);
-        Alert.alert(
-          'Loja não cadastrada',
-          'Verifique se preencheu os campos corretamente!',
-        );
+          Alert.alert('Loja cadastrada', 'Sua loja foi criada com sucesso');
+          navigation.goBack();
+        } catch (err) {
+          console.log(err);
+          Alert.alert(
+            'Loja não cadastrada',
+            'Verifique se preencheu os campos corretamente!',
+          );
+        }
       }
     },
     [markerLocation, products],
@@ -108,9 +124,33 @@ const Store: React.FC = () => {
       close_at: '',
     },
     enableReinitialize: true,
-    validationSchema: SCHEMA,
+    // validationSchema: SCHEMA,
     onSubmit: handleSubmit,
   });
+
+  useEffect(() => {
+    if (store) {
+      console.log(store);
+
+      formik.setFieldValue('banner', store.banner);
+      formik.setFieldValue('name', store.name);
+      formik.setFieldValue('description', store.description);
+      formik.setFieldValue('contact_number', store.contact_number);
+      formik.setFieldValue('city', store.city);
+      formik.setFieldValue('close_at', store.close_at);
+      formik.setFieldValue('open_at', store.open_at);
+      setMarkerLocation({
+        latitude: parseFloat(store.localization.latitude),
+        longitude: parseFloat(store.localization.longitude),
+      });
+      console.log(products);
+
+      setProducts(store.products);
+      setPicture({ uri: `http://localhost:3333/files/${store.banner}` });
+      setTimeClose(store.close_at);
+      setTimeOpen(store.open_at);
+    }
+  }, []);
 
   const optionsImagePicker: ImagePickerOptions = {
     title: 'Selecionae uma foto',
@@ -357,7 +397,13 @@ const Store: React.FC = () => {
           })}
 
         <Button onPress={formik.submitForm}>
-          {loading ? <AnimationCircule /> : 'Criar loja'}
+          {loading ? (
+            <AnimationCircule />
+          ) : store ? (
+            'Editar loja'
+          ) : (
+            'Criar loja'
+          )}
         </Button>
         <ModalProduct
           visibleModal={visibleModal}
