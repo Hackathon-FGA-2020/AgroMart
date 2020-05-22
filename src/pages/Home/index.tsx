@@ -44,7 +44,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     async function getStores(): Promise<void> {
       const response = await api.get('/stores');
-
       setStores(response.data);
     }
 

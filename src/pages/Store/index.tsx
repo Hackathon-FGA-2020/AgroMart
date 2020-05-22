@@ -107,12 +107,25 @@ const Store: React.FC = () => {
       }
 
       const { fileName } = response;
-      setPicture({
+      const image = {
         uri: response.uri,
         type: response.type,
         name: fileName,
         data: response.data,
-      });
+      };
+
+      const body = new FormData();
+      body.append('file', image);
+
+      console.log(image);
+      api
+        .post('/files', body)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     });
   }, [picture, optionsImagePicker]);
 
