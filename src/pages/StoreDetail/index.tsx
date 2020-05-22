@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Linking, Platform } from 'react-native';
+import { Linking, Platform, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRoute } from '@react-navigation/native';
 
@@ -73,10 +73,8 @@ const StoreDetail: React.FC = () => {
   const handleOpenMap = useCallback(async (location: Location): Promise<
     void
   > => {
-    const scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+    const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=';
     const url = `${scheme}${location.latitude},${location.longitude}`;
-
-    // console.log(storeInfo.localization.latitude);
 
     Linking.openURL(url).catch(err => console.log(err));
   }, []);
@@ -96,7 +94,14 @@ const StoreDetail: React.FC = () => {
             <ContentText>{storeInfo.city}</ContentText>
             <RowView>
               <IconView
-                onPress={() => handleWhatsAppMessage(storeInfo.contact_number)}
+                onPress={() =>
+                  user
+                    ? handleWhatsAppMessage(storeInfo.contact_number)
+                    : Alert.alert(
+                        'Sem permissão',
+                        'Faça login para visualizar essa informação',
+                      )
+                }
               >
                 <Icon name="whatsapp" size={23} color="#fff" />
               </IconView>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, EffectCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
