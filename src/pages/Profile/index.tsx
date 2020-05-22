@@ -33,6 +33,7 @@ interface Store {
 
 const Profile: React.FC = () => {
   const { user, signOut } = useAuth();
+  const [store, setStore] = useState(null);
   const [hasStore, setHasStore] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const navigation = useNavigation();
@@ -48,18 +49,20 @@ const Profile: React.FC = () => {
   }, []);
 
   useFocusEffect(
-    useCallback(async (): any => {
-      try {
-        const response = await api.get(`stores`);
-        response.data.forEach((item: Store) => {
-          if (item.owner_id === user?.id) {
+    useCallback((): any => {
+      api
+        .get(`stores?userId=${user?.id}`)
+        .then(response => {
+          if (response.data.length === 1) {
+            console.log(`aquii: ${response.data[0].products[1].price}`);
+            setStore(response.data[0]);
             setHasStore(true);
           }
+        })
+        .catch(e => {
+          setHasStore(false);
         });
-      } catch (error) {
-        setHasStore(false);
-      }
-    }, [user]),
+    }, [hasStore]),
   );
 
   useEffect(() => {
@@ -70,17 +73,17 @@ const Profile: React.FC = () => {
     return (
       <BodyView>
         <BodyText>Você ainda não possui uma loja ! </BodyText>
-        <Button onPress={() => navigation.navigate('Store')}>
+        <Button onPress={() => navigation.navigate('Store', { store: null })}>
           Cadastrar loja
         </Button>
       </BodyView>
     );
-  }, [navigation]);
+  }, [hasStore]);
 
   const userHasStore = useCallback(() => {
     return (
       <ButtonsContainer>
-        <Button onPress={() => navigation.navigate('Store')}>
+        <Button onPress={() => navigation.navigate('Store', { store })}>
           Editar Loja
         </Button>
         <DeleteButton onPress={() => handleDeleteStore()}>
@@ -88,7 +91,7 @@ const Profile: React.FC = () => {
         </DeleteButton>
       </ButtonsContainer>
     );
-  }, [navigation]);
+  }, [hasStore]);
 
   return (
     <Container>
