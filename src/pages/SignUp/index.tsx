@@ -5,9 +5,13 @@ import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ScrollView } from 'react-native-gesture-handler';
+
 import api from '../../services/api';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import ArrowBackComponent from '../../components/ArrowBackComponent';
+
 import {
   Container,
   Logo,
@@ -71,6 +75,7 @@ const SignIn: React.FC = () => {
 
   return (
     <ScrollView>
+      <ArrowBackComponent />
       <Container>
         <Logo />
         <AppName>AgroMart</AppName>

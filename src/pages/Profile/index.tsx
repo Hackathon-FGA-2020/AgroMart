@@ -19,6 +19,7 @@ import {
 import Button from '../../components/Button';
 import DeleteButton from '../../components/DeleteButton';
 import Input from '../../components/Input';
+import ArrowBackComponent from '../../components/ArrowBackComponent';
 
 interface User {
   name: string;
@@ -79,6 +80,7 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
+      <ArrowBackComponent />
       <View style={{ paddingBottom: 40, alignSelf: 'center' }}>
         <PictureProfile />
       </View>

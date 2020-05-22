@@ -10,6 +10,7 @@ import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import ArrowBackComponent from '../../components/ArrowBackComponent';
 
 import {
   Container,
@@ -64,6 +65,7 @@ const SignIn: React.FC = () => {
 
   return (
     <Container>
+      <ArrowBackComponent />
       <Logo />
       <AppName>AgroMart</AppName>
       <Input

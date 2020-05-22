@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import api from '../../services/api';
 
 import StoreCard from '../../components/StoreCard';
+import ArrowBackComponent from '../../components/ArrowBackComponent';
 
 import { Container } from './styles';
 
@@ -33,7 +34,8 @@ const CitySearchResult: React.FC = () => {
 
   return (
     <Container>
-      <ScrollView style={{ marginTop: '4%' }}>
+      <ArrowBackComponent />
+      <ScrollView style={{ marginTop: '10%' }}>
         {results.length ? (
           results.map((item: Store) => (
             <StoreCard
@@ -45,7 +47,9 @@ const CitySearchResult: React.FC = () => {
             />
           ))
         ) : (
-          <Text>Nenhum resultado encontrado</Text>
+          <Text style={{ alignSelf: 'center' }}>
+            Nenhum resultado encontrado
+          </Text>
         )}
       </ScrollView>
     </Container>

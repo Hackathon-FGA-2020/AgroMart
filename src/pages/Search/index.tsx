@@ -62,7 +62,9 @@ const Search: React.FC = () => {
               />
             ))
           ) : (
-            <Text>Nenhum resultado encontrado</Text>
+            <Text style={{ alignSelf: 'center' }}>
+              Nenhum resultado encontrado
+            </Text>
           )}
         </ScrollView>
       ) : (

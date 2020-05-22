@@ -6,6 +6,8 @@ import { useRoute } from '@react-navigation/native';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 
+import ArrowBackComponent from '../../components/ArrowBackComponent';
+
 import {
   Container,
   Content,
@@ -81,6 +83,7 @@ const StoreDetail: React.FC = () => {
 
   return (
     <Container>
+      <ArrowBackComponent />
       <CustomImage
         source={{
           // uri: `http://10.0.2.2:3333/files/${storeInfo.banner}`,
