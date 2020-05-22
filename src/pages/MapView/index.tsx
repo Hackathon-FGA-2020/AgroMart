@@ -114,7 +114,7 @@ const Map: React.FC = () => {
 
               <Callout
                 onPress={() => {
-                  navigation.navigate('StoreDetail');
+                  navigation.navigate('StoreDetail', { storeId: store.id });
                 }}
               >
                 <CalloutView>
