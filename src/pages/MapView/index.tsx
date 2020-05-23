@@ -108,8 +108,8 @@ const Map: React.FC = () => {
             >
               <StoreBanner
                 source={{
-                  uri: `https://corpus.serveo.net/${store.banner}`,
-                  // uri: `http://localhost:3333/files/${store.banner}`
+                  // uri: `https://corpus.serveo.net/${store.banner}`,
+                  uri: `http://localhost:3333/files/${store.banner}`,
                 }}
               />
 

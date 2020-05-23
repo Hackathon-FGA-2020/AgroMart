@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
     } catch {
       Alert.alert('Erro!', 'Erro ao excluir loja');
     }
-  }, []);
+  }, [user]);
 
   useFocusEffect(
     useCallback((): any => {
@@ -54,7 +54,6 @@ const Profile: React.FC = () => {
         .get(`stores?userId=${user?.id}`)
         .then(response => {
           if (response.data.length === 1) {
-            console.log(`aquii: ${response.data[0].products[1].price}`);
             setStore(response.data[0]);
             setHasStore(true);
           }
@@ -62,12 +61,12 @@ const Profile: React.FC = () => {
         .catch(e => {
           setHasStore(false);
         });
-    }, [hasStore]),
+    }, [user, handleDeleteStore]),
   );
 
   useEffect(() => {
     setUserInfo(user as User);
-  }, [user, handleDeleteStore]);
+  }, [user]);
 
   const userDosentHasStore = useCallback(() => {
     return (
@@ -78,7 +77,7 @@ const Profile: React.FC = () => {
         </Button>
       </BodyView>
     );
-  }, [hasStore]);
+  }, [navigation]);
 
   const userHasStore = useCallback(() => {
     return (
@@ -91,7 +90,7 @@ const Profile: React.FC = () => {
         </DeleteButton>
       </ButtonsContainer>
     );
-  }, [hasStore]);
+  }, [hasStore, navigation]);
 
   return (
     <Container>

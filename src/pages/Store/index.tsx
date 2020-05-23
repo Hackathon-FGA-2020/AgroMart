@@ -89,7 +89,6 @@ const Store: React.FC = () => {
       } else {
         try {
           await api.post('/stores', body);
-
           Alert.alert('Loja cadastrada', 'Sua loja foi criada com sucesso');
           navigation.goBack();
         } catch (err) {

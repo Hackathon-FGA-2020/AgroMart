@@ -22,8 +22,8 @@ const StoreCard: React.FC<StoreCardProps> = ({ id, bannerUrl, name, city }) => {
         <PictureCard
           // source={{ uri: `http://10.0.2.2:3333/files/${bannerUrl}` }}
           source={{
-            uri: `https://corpus.serveo.net/${bannerUrl}`,
-            // uri: `http://localhost:3333/files/${bannerUrl}`
+            // uri: `https://corpus.serveo.net/${bannerUrl}`,
+            uri: `http://localhost:3333/files/${bannerUrl}`,
           }}
         />
         <TitleCard>{name}</TitleCard>
