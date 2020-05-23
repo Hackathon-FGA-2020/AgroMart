@@ -18,6 +18,13 @@ Em um momento tão difícil como esse, confiança e honestidade é essencial par
 <div align="center">
   <img alt="AgroMartMobile" title="AgroMartMobile" src="https://raw.githubusercontent.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/develop/src/assets/images/ReadMeScreens.png" />
 </div>
+<div align="center">
+  <img alt="AgroMartMobile" title="AgroMartMobile" src="https://github.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/blob/develop/src/assets/Read-me%20gif%201.gif" />
+  <img alt="AgroMartMobile" title="AgroMartMobile" src="https://github.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/blob/develop/src/assets/readme%20gif%202.gif" />
+  
+  
+</div>
+
 
 ---
 
@@ -43,7 +50,7 @@ Em um momento tão difícil como esse, confiança e honestidade é essencial par
 | <img src="https://avatars3.githubusercontent.com/u/19879482?s=460&v=4" width=50>                                            | Lucas Pereira de Andrade Macêdo | [@lukassxp](https://github.com/lukassxp)     | Product Manager & Full Stack Developer |
 | <img src="https://avatars0.githubusercontent.com/u/23382026?s=460&v=4" width=50>                                            | Lucas Siqueira Rodrigues        | [@LucasSiqz](https://github.com/LucasSiqz)   | Team Manager & Full Stack Developer        |
 | <img src="https://avatars3.githubusercontent.com/u/23109243?s=460&u=1ebd15e65395061ca00cfe224e79325e253d54f3&v=4" width=50> | Caio Oliveira de Moraes         | [@caiooliv](https://github.com/caiooliv)     | UX Designer & Mobile Developer         |
-| <img src="https://avatars1.githubusercontent.com/u/31085700?s=460&u=c4dbcc80bed6756d37aa9820b84207e3e8f16d8c&v=4" width=50> | Matheus Rodrigues               | [@matheus-rn](https://github.com/matheus-rn) | Devops & Full Stack Developer              |
+| <img src="https://avatars1.githubusercontent.com/u/31085700?s=460&u=c4dbcc80bed6756d37aa9820b84207e3e8f16d8c&v=4" width=50> | Matheus Rodrigues               | [@matheus-rn](https://github.com/matheus-rn) | Devops & Mobile Developer              |
 
 ---
 
