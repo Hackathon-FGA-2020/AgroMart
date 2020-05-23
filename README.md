@@ -9,13 +9,17 @@ Tema: Agricultura e Alimentação
 
 Como descrito no [enunciado do desafio](https://github.com/Hackathon-FGA-2020/Sobre-o-Hackathon/blob/master/docs/Desafios/Desafio_3/Hackathon_FGA_2020_Desafio_3.pdf), devido ao isolamento social provocado pelo avanço da COVID-19 no Brasil, pequenos agricultores passam por dificuldades para vender e expor seus produtos que antes eram vendidos em feiras, para hotéis, restaurantes e outros clientes. Assim com as necessidades dos agricultores o projeto AgroMart se iniciou para ajudá-los a se conectar com os consumidores por meio de um aplicativo de celular, facilitando a comunicação e divulgação de seus produtos.
 
-A ideia surgiu a partir de uma [reportagem transmitida no globo rural](https://g1.globo.com/economia/agronegocios/globo-rural/noticia/2020/05/03/produtora-de-goias-cria-barraca-da-honestidade-para-melhorar-as-vendas-de-hortalicas-e-verduras.ghtml), onde Eleuza Fernandes, uma pequena agricultora do Goiás, montou uma barraca em que toda negociação é feita na base da confiança, onde o consumidor ao chegar recolhe o produto desejado e deixa o pagamento no local evitando desperdícios e proporcionando uma experiência compatível ao momento atual devido ao COVID-19, que trás beneficios tanto para o agricultor quanto para o consumidor.
+A ideia surgiu a partir de uma [reportagem transmitida no globo rural](https://g1.globo.com/economia/agronegocios/globo-rural/noticia/2020/05/03/produtora-de-goias-cria-barraca-da-honestidade-para-melhorar-as-vendas-de-hortalicas-e-verduras.ghtml), onde Eleuza Fernandes, uma pequena agricultora de Goiás, montou uma barraca em que toda negociação é feita na base da confiança, onde o consumidor ao chegar recolhe o produto desejado e deixa o pagamento no local evitando desperdícios e proporcionando uma experiência compatível ao momento atual devido ao COVID-19, que trás beneficios tanto para o agricultor quanto para o consumidor.
 
 Em um momento tão difícil como esse, confiança e honestidade é essencial para que nós possamos superá-lo, e a história de Eleuza nos motivou a criar o AgroMart, um aplicativo, onde o agricultor possa divulgar sua loja, barraca ou ponto de venda com seus devidos produtos, preços, localização, informação de contato e uma descrição adicional. E com isso  o consumidor poderá visualizar as lojas mais próximas dele através de mapas e filtros, entrar em contato com o vendedor por um link para iniciar uma conversa direta via whatsapp com o principal objetivo de confirmar disponibilidade de produtos e adquirir informações sobre pagamentos, assim como localizar a barraca por um link direto para traçar uma rota a partir de seu destino atual. Além disso, no aplicativo disponibilizamos uma sessão de informações com recomendações quanto ao uso do mesmo durante a pandemia.
 
 ---
 
-<!-- Adicionar gif do app -->
+<div align="center">
+  <img alt="AgroMartMobile" title="AgroMartMobile" src="https://raw.githubusercontent.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/develop/src/assets/images/ReadMeScreens.png" />
+</div>
+
+---
 
 ## Funcionalidades
 
