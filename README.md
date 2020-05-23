@@ -15,7 +15,11 @@ Em um momento tão difícil como esse, confiança e honestidade é essencial par
 
 ---
 
-<!-- Adicionar gif do app -->
+<div align="center">
+  <img alt="AgroMartMobile" title="AgroMartMobile" src="https://raw.githubusercontent.com/Hackathon-FGA-2020/Desafio-3-Grupo-6-mobile/develop/src/assets/images/ReadMeScreens.png" />
+</div>
+
+---
 
 ## Funcionalidades
 
