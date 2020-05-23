@@ -13,7 +13,7 @@ A ideia surgiu a partir de uma [reportagem transmitida no globo rural](https://g
 
 Em um momento tão difícil como esse, confiança e honestidade é essencial para que nós possamos superá-lo, e a história de Eleuza nos motivou a criar o AgroMart, um aplicativo, onde o agricultor possa divulgar sua loja, barraca ou ponto de venda com seus devidos produtos, preços, localização, informação de contato e uma descrição adicional. E com isso  o consumidor poderá visualizar as lojas mais próximas dele através de mapas e filtros, entrar em contato com o vendedor por um link para iniciar uma conversa direta via whatsapp com o principal objetivo de confirmar disponibilidade de produtos e adquirir informações sobre pagamentos, assim como localizar a barraca por um link direto para traçar uma rota a partir de seu destino atual. Além disso, no aplicativo disponibilizamos uma sessão de informações com recomendações quanto ao uso do mesmo durante a pandemia.
 
-link da apresentação: https://www.youtube.com/watch?v=z_72NzAJXTM&feature=youtu.be
+O formulário de submissão encontra-se na pasta docs e a apresentação disponível nesse link: https://www.youtube.com/watch?v=z_72NzAJXTM&feature=youtu.be
 
 ---
 
