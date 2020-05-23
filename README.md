@@ -131,3 +131,4 @@ Esse projeto utiliza a licença GNU GENERAL PUBLIC LICENSE. Para mais informaç�
 - [Enunciado do Tema 3](https://github.com/Hackathon-FGA-2020/Sobre-o-Hackathon/blob/master/docs/Desafios/Desafio_3/Hackathon_FGA_2020_Desafio_3.pdf)
 - [Anexo do Tema](https://github.com/Hackathon-FGA-2020/Sobre-o-Hackathon/blob/master/docs/Desafios/Desafio_3/Anexo_Agricultura_Familiar.pdf)
 - [Reportagem: Barraca da Honestidade](https://g1.globo.com/economia/agronegocios/globo-rural/noticia/2020/05/03/produtora-de-goias-cria-barraca-da-honestidade-para-melhorar-as-vendas-de-hortalicas-e-verduras.ghtml)
+- [Protótipo da aplicação](https://www.figma.com/file/LvYm6LineBvtRDuohJimUB/Untitled?node-id=8%3A2)
